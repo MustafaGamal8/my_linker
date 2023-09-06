@@ -24,7 +24,7 @@ const Auth = () => {
     <div  className="relative w-full h-full flex flex-col-reverse  md:flex-row items-center justify-between    gap-5 mt-5 md:mt-0">
       
       <div className="w-full md:w-[40%]  h-32 md:h-full flex  flex-col items-center justify-around    bg-gradient-to-b from-primary">
-        <h1 className="text-blue-400 bg-white drop-shadow-md p-3 text-3xl font-semibold w-full text-center hidden md:block">{mood === "login"? "تسجيل الدخول":"انشاء حساب"}</h1>
+        <h1 className="text-blue-400 bg-white drop-shadow-md p-3 text-3xl font-semibold w-full text-center hidden md:block">{mood === "login"? "تسجيل الدخول":"إنشاء حساب"}</h1>
         <img className="w-[40%] md:w-[80%] " src="/assets/security.svg" alt="" />
       </div>
       
