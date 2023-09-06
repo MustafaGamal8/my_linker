@@ -13,8 +13,6 @@
     }
   ],
   "build": {
-    "scripts": {
       "build": "cd client && npm run build " 
-    }
   }
 }
