@@ -12,6 +12,6 @@
       "dest": "index.js"
     }
   ],
-      "build": "cd client && npm run build " 
+  "buildCommand": "cd client && npm run build " 
   
 }
