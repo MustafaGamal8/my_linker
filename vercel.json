@@ -4,10 +4,6 @@
     {
       "src": "./index.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "./client",
-      "use": "npm run build"
     }
   ],
   "routes": [
@@ -15,5 +11,10 @@
       "src": "/(.*)",
       "dest": "index.js"
     }
-  ]
+  ],
+  "build": {
+    "scripts": {
+      "build": "cd client && npm run build " 
+    }
+  }
 }
