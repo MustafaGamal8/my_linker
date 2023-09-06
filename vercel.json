@@ -12,10 +12,5 @@
       "dest": "index.js"
     }
   ],
-  "build": {
-    "scripts": {
-      "build": "cd client && npm run build ", 
-      "postbuild": "npm run start" 
-    }
-  }
+  "buildCommand": "npm run build"
 }
