@@ -4,19 +4,12 @@
     {
       "src": "./index.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "./client/",
-      "use": "npm run build"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
       "dest": "index.js"
-    },{
-      "src": "./client/(.*)",
-      "dest": "./client/"
     }
   ]
 }
