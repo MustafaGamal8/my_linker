@@ -3,7 +3,11 @@
   "builds": [
     {
       "src": "./index.js",
-      "use": "npm run build"
+      "use": "@vercel/node"
+    },
+    {
+      "src": "./client",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
