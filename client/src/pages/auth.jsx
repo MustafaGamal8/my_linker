@@ -4,14 +4,26 @@ import {HiEye, HiEyeOff, HiLockClosed, HiOutlineMail} from "react-icons/hi"
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { toast } from "react-toastify";
+import MouseEffect from "../components/mouseEffect";
+
+
 
 
 
 const Auth = () => {
   const {mood} = useParams() || "login"
+  const IsMobile = 1200 > window.innerWidth
+
+
+
+
 
   return (
-    <section className="w-full md:h-full lg:overflow-hidden"> 
+    <section className={`w-full md:h-full lg:overflow-hidden  ${!IsMobile && 'cursor-none'}`}> 
+   {
+        !IsMobile && <MouseEffect />
+      }
+
       <nav className="bg-white drop-shadow-lg w-full h-16 rounded-b flex items-center justify-center">
           <img
             src="/assets/logo.png"

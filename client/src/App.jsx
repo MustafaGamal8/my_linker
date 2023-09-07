@@ -16,11 +16,9 @@ function App() {
 
 
   return (
-    <main className={`w-full h-screen overflow-y-auto ${!IsMobile && 'cursor-none'}`}>
+    <main className={`w-full h-screen overflow-y-auto `}>
       
-      {
-        !IsMobile && <MouseEffect />
-      }
+      
 
     <Routes>
       <Route path="/"   element={<Navigate to="/auth/login" />} />
