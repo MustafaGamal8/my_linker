@@ -18,7 +18,7 @@ function MouseEffect() {
 
 
   const style = {
-    position: "absolute",
+    position: "fixed",
     width: "25px",
     height: "25px",
     border: "2px solid #007bff",
