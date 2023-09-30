@@ -7,6 +7,7 @@ import { ToastContainer  } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import TemplateOne from "./templates/template_one";
 import TemplateTwo from "./templates/template_two";
+import TemplateThree from "./templates/template_three";
 
 function App() {
   
@@ -30,6 +31,7 @@ function App() {
       <Route path="/profile"  element={<Profile />} />
       <Route path="/temp/one" element={<TemplateOne />} />
       <Route path="/temp/two" element={<TemplateTwo />} />
+      <Route path="/temp/three" element={<TemplateThree />} />
            
 
     </Routes>

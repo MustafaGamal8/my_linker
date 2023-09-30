@@ -11,7 +11,7 @@ const TemplateTwo = () => {
 
   const theme = {
     primary: "#242936",
-    secondary: "#f89f5b",
+    secondary: "#2563eb",
   }
   const details = {
     name: "مصطفي جمال",
@@ -81,7 +81,7 @@ const TemplateTwo = () => {
 
   return (
     <section className='relative'  >
-      <img src="/assets/covers/galaxy2.jpg" alt="" className='  absolute top-0 left-0 w-full h-52 md:h-80 object-cover drop-shadow-lg' />
+      <img src="/assets/covers/man.jpg" alt="" className='  absolute top-0 left-0 w-full h-52 md:h-80 object-cover drop-shadow-lg' />
       <div className='h-32 md:h-52'></div> 
 
 
@@ -121,7 +121,7 @@ const TemplateTwo = () => {
           <div className='lg:w-[90%]  mt-10 drop-shadow-md m-auto'>
 
 
-          <div>
+          <div className='lg:w-[80%] m-auto'>
               {mood === "about" && details.about && (
                 <h1 className="text-xl text-center text-white py-4 rounded-lg shadow-lg select-text" style={{background:theme.secondary}}>
                   {details.about}
@@ -130,11 +130,11 @@ const TemplateTwo = () => {
             </div>
 
 
-            <div className='flex   items-center w-full  flex-wrap justify-center  gap-5  p-2 ' >
+            <div className='flex   items-center w-full  flex-wrap lg:justify-start justify-center  gap-5  p-2 ' >
               {
                 mood == "projects" && details.projects && details.projects.map(project => (
                   <div className='w-96 bg-white drop-shadow-lg rounded-xl  flex flex-col justify-center gap-3 '>
-                    <div className='p-2 border-2 rounded-lg ' style={{borderColor:theme.secondary}}><img className=' w-full object-cover rounded-xl drop-shadow' src={project.img} alt="" /></div>
+                    <img className=' w-full object-cover rounded-xl drop-shadow' src={project.img} alt="" />
                     <h1 className=' text-xl font-semibold text-center uppercase' style={{ color: theme.primary }}>{project.title}</h1>
 
                     <Link to={project.link} target='_blank' className='w-full flex items-center justify-center p-1 text-white hover:translate-y-1 transition-all  text-xl' style={{ background: theme.secondary }} ><CiShare1 /></Link>
@@ -154,7 +154,7 @@ const TemplateTwo = () => {
             <div className='flex flex-col w-full gap-5'>
             {mood === "skills" && details.Skills && details.Skills.map(skill=>(
               
-              <h1 className='text-2xl  p-2 rounded  w-[50%] m-auto text-center capitalize hover:-translate-y-2 transition-all' style={{color:theme.primary,background:theme.secondary}}>{skill}</h1>
+              <h1 className='text-2xl  p-2 rounded  w-[50%] m-auto text-center capitalize hover:-translate-y-2 transition-all text-white' style={{background:theme.secondary}}>{skill}</h1>
             )) }
             </div>
 
