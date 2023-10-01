@@ -15,7 +15,7 @@ app.use(require('express-session')({ secret: process.env.SECRET, resave: true, s
 
 // Initialize Passport
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 require("./config/passport")
 
 

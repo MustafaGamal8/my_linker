@@ -1,4 +1,3 @@
-
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
@@ -25,6 +24,7 @@ passport.use(
       clientID: '6826290637421123',
       clientSecret: '319e204ca9cb6ec8339f8f1de5288abe',
       callbackURL: '/auth/facebook/callback',
+      proxy: true
     },(req, accessToken, refreshToken, profile, done) => {
       return done(null, profile);
     }
