@@ -6,7 +6,7 @@ import PartenersIcon from '../assets/icons/Parteners.svg';
 import SectionsIcon from '../assets/icons/Sections.svg';
 import CallIcon from '../assets/icons/Call.svg';
 
-import WomenSVG from '../assets/Women.svg';
+import WomenSVG from '../assets/women.svg';
 import Man from '../assets/man.svg';
 
 import Share from '../assets/icons/Share.svg';
