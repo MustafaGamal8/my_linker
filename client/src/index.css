@@ -10,6 +10,8 @@
   user-select: none;
   -webkit-user-drag: none;
 }
+
+
 body {
   background: #fbfbfb;
 }
@@ -17,4 +19,19 @@ body {
 .cold_filter{
   
   filter: grayscale(0.84) hue-rotate(20deg)  saturate(2.2) contrast(1.1) ;
+}
+
+
+
+.Nav_Item{
+  @apply flex flex-row-reverse items-center gap-1  text-white cursor-pointer h-full  relative after:absolute after:bottom-0 after:left-0  after:w-0 hover:after:w-full after:h-[6px] after:bg-secondary after:transition-all after:rounded
+}
+
+.Side_Item{
+  @apply flex flex-row-reverse items-center gap-1  text-white cursor-pointer h-full  relative after:absolute after:-bottom-2 after:left-0  after:w-0 hover:after:w-full after:h-[6px] after:bg-secondary after:transition-all after:z-10 after:rounded
+}
+
+
+.advantage_item{
+  @apply flex items-center justify-around  gap-2 md:border-l border-b p-2 md:w-full   relative after:absolute after:bottom-0 after:left-0  after:w-0 hover:after:w-full after:h-[6px] after:bg-secondary after:transition-all
 }

@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import TemplateOne from "./templates/template_one";
 import TemplateTwo from "./templates/template_two";
 import TemplateThree from "./templates/template_three";
+import Home from "./pages/Home";
 
 function App() {
   
@@ -26,13 +27,12 @@ function App() {
       
 
     <Routes>
-      <Route path="/"   element={<Navigate to="/auth/login" />} />
+      <Route path="/"  element={<Home />} />
       <Route path="/auth/:mood"  element={<Auth />} />
       <Route path="/profile"  element={<Profile />} />
-      <Route path="/temp/one" element={<TemplateOne />} />
+      {/* <Route path="/temp/one" element={<TemplateOne />} />
       <Route path="/temp/two" element={<TemplateTwo />} />
-      <Route path="/temp/three" element={<TemplateThree />} />
-           
+      <Route path="/temp/three" element={<TemplateThree />} /> */}
 
     </Routes>
 
