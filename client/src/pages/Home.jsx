@@ -28,13 +28,13 @@ const Home = () => {
   return (
     <main>
 
-      <header className='bg-primary   drop-shadow-xl'>
+      <header className='bg-primary   drop-shadow-xl pb-2'>
         <NavBar />
 
 
         <section className='flex md:flex-row flex-col justify-around items-center mt-16'>
 
-          <img className='drop-shadow-xl' src={WomenSVG} alt="" />
+          <img className='drop-shadow-xl ' src={WomenSVG} alt="" />
 
 
 
@@ -58,7 +58,7 @@ const Home = () => {
 
 
 
-      <section className='my-24 bg-white w-[80%] md:h-24 m-auto rounded-md flex md:flex-row-reverse flex-col justify-center   whitespace-nowrap lg:text-base text-sm drop-shadow-xl'>
+      <section className='my-24 bg-white w-[80%] md:h-24 m-auto rounded-md flex md:flex-row-reverse flex-col justify-center   whitespace-nowrap lg:text-base text-sm drop-shadow-xl '>
 
         <div className='advantage_item'>
           <img className='h-7 ' src={Share} alt="" />
@@ -116,7 +116,7 @@ const Home = () => {
         <h1 className='text-4xl text-primary text-center font-semibold'>التوصيات</h1>
 
 
-        <div className='flex items-center justify-center w-[90%] mt-16 mx-auto gap-5'>
+        <div className='flex flex-col md:flex-row gap-y-20 items-center justify-center w-[90%] mt-16 mx-auto gap-5'>
 
           <Recommendation img={Man} name={"مصطفي جمال"} p={"موقع رائع وجميل وانصح به بشدة . لقد اذهلني جدا . موقع رائع وجميل وانصح به بشدة . لقد اذهلني جداموقع رائع وجميل وانصح به بشدة . لقد اذهلني جدا"} />
           <Recommendation img={Man} name={"مصطفي جمال"} p={"موقع رائع وجميل وانصح به بشدة . لقد اذهلني جدا . موقع رائع وجميل وانصح به بشدة . لقد اذهلني جداموقع رائع وجميل وانصح به بشدة . لقد اذهلني جدا"} />
@@ -183,7 +183,7 @@ function NavBar() {
 
       {
         isSidebarOpen && (
-          <Linkside className='fixed top-0 left-0 h-full w-[250px] bg-primary flex flex-col  items-center justify-around z-[50]'>
+          <aside className='absolute top-0 left-0 h-screen w-[250px] bg-primary flex flex-col  items-center justify-around z-[50]'>
 
             <div className='flex items-center  '><HiMenuAlt1 className='text-2xl text-white cursor-pointer' onClick={toggleSidebar} /></div>
 
@@ -198,7 +198,7 @@ function NavBar() {
 
             <div></div>
 
-          </Linkside>
+          </aside>
         )
       }
 
@@ -256,10 +256,10 @@ function Recommendation({ img, p, name }) {
 
 function Footer() {
   return (
-    <footer className='w-full  flex items-start pt-14 pb-5 flex-row-reverse justify-around gap-4 mt-28 text-right  bg-gradient-to-r from-[#43CFC6] to-[#C8ADEF] '>
+    <footer className='w-full  flex md:items-start pt-14 pb-5 md:flex-row-reverse flex-col items-center justify-around gap-4 mt-28 text-right  bg-gradient-to-r from-[#43CFC6] to-[#C8ADEF] '>
 
 
-      <section className='flex flex-col gap-4 text-white'>
+      <section className='flex flex-col gap-4 text-white text-center'>
         <h1 className='font-semibold text-3xl'>تواصل معنا</h1>
         <Link to="tel:+201276071829" className='flex items-center justify-end gap-4'>
           <img src={CallIcon} alt="" />
@@ -283,7 +283,7 @@ function Footer() {
 
 
       
-      <section className='flex flex-col gap-4 text-white '>
+      <section className='flex flex-col gap-4 text-white md:text-right  text-center  md:mt-0  mt-6'>
         
       <h1 className='font-semibold text-3xl'>المشاريع السابقة</h1>
 
@@ -297,7 +297,7 @@ function Footer() {
       
 
 
-      <section  className='flex flex-col gap-4  text-white '>
+      <section  className='flex flex-col gap-4  text-white  text-center md:mt-0  mt-6'>
       <h1 className='font-semibold text-3xl'>قل مرحبا</h1>
 
       <ContactForm />
