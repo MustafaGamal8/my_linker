@@ -12,11 +12,11 @@ const SignUp = () => {
   return (
     <div className="flex flex-row-reverse justify-around items-center  h-[100vh]" style={{ backgroundImage: `url(${bg2})`, backgroundSize: "cover", backgroundPosition: "center" }}>
 
-      <section className="bg-white drop-shadow-xl p-10 rounded lg:w-[35%] md:w-[50%] w-[90%] ">
+      <section className="bg-white drop-shadow-xl p-2 md:p-10 rounded lg:w-[35%] md:w-[50%] w-[90%] ">
         <Link to={"/"}><img src="/assets/logo.png" className='h-36 m-auto absolute  top-0 left-1/2 transform translate-x-[-50%] translate-y-[-50%]  ' alt="" /></Link>
-        <h1 className="text-3xl font-semibold text-center mt-7">إنشاء حساب</h1>
+        <h1 className="text-3xl font-semibold text-center mt-12 md:mt-7">إنشاء حساب</h1>
 
-        <section className='w-[90%] md:w-[80%] lg:w-[60%] m-auto'>
+        <section className='w-full md:w-[80%] lg:w-[60%] m-auto'>
           <Link to={"https://mylinker-server.vercel.app/auth/google"} className='flex items-center justify-center w-full p-3 gap-3 bg-white drop-shadow-md m-auto cursor-pointer rounded-lg mt-4 hover:bg-gray-50 transition-all'>
             <svg width={32} height={25} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clipPath="url(#clip0_24_797)">
@@ -126,7 +126,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <form className="flex flex-col items-center  w-[80%] p-1 m-auto gap-4">
+    <form className="flex flex-col items-center  md:w-[80%] p-1 m-auto gap-4">
     <div className="flex items-center p-1 w-full border border-gray-400 rounded-md">
       <input
         type="text"
