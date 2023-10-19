@@ -1,8 +1,13 @@
 import React from 'react';
+import { useCookies } from 'react-cookie';
 import { CiLogout } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 
 const Profile = () => {
+  const [cookies] = useCookies([]);
+
+  console.log(cookies)
+  
   return (
     <section className='h-full'>
       <nav className=" w-full h-16 rounded-b flex items-center justify-between  bg-white px-5">

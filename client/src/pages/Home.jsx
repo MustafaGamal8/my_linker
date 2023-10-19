@@ -24,121 +24,122 @@ import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const Home = () => {
-  return (
-    <main>
 
-      <header className='bg-primary   drop-shadow-xl pb-2'>
+
+const Home = () => {
+  const [isShowMore, setIsShowMore] = useState(false)
+
+
+  return (
+    <main className='relative'>
+
+      
+
+      <header id='header' className='bg-primary '>
         <NavBar />
 
-
-        <section className='flex md:flex-row flex-col justify-around items-center mt-16'>
-
-          <img className='drop-shadow-xl ' src={WomenSVG} alt="" />
-
-
-
+        <section className='flex md:flex-row flex-col justify-around items-center mt-16  p-2'>
+          <img className='drop-shadow-xl' src={WomenSVG} alt='' />
           <div className='flex flex-col gap-y-4 items-end'>
             <h1 className='text-white font-semibold text-5xl text-right'>
               جرب الان اكثر من 10 قالب <span className='text-purple70 font-bold'>جاهز للمشاركة</span>
             </h1>
-
             <p className='text-white'>
-اكتشف مجموعتنا المبتكرة من القوالب والصفحات الشخصية.
-شكل ملفك الشخصي بأفضل القوالب الجاهزة.
-ابدأ رحلة إبداعية مع تصاميمنا الاحترافية.</p>
-
-
-            <button className='bg-purple70 text-white p-3 rounded-xl font-semibold '>احصل علي تجربة مجانية</button>
+              اكتشف مجموعتنا المبتكرة من القوالب والصفحات الشخصية. شكل ملفك الشخصي بأفضل القوالب الجاهزة.
+              ابدأ رحلة إبداعية مع تصاميمنا الاحترافية.
+            </p>
+            <Link to={"/auth/signup"} className='bg-purple70 text-white p-3 rounded-xl font-semibold'>إبدا الان و احصل علي تجربة رأئعة</Link>
           </div>
-
         </section>
-
       </header>
 
-
-
-      <section className='my-24 bg-white w-[80%] md:h-24 m-auto rounded-md flex md:flex-row-reverse flex-col justify-center   whitespace-nowrap lg:text-base text-sm drop-shadow-xl '>
-
+      <section className='my-24 bg-white w-[80%] md:h-24 m-auto rounded-md flex md:flex-row-reverse flex-col justify-center whitespace-nowrap lg:text-base text-sm drop-shadow-xl '>
         <div className='advantage_item'>
-          <img className='h-7 ' src={Share} alt="" />
+          <img className='h-7' src={Share} alt='' />
           <h1>شارك اعمالك بسهولة</h1>
         </div>
 
         <div className='advantage_item'>
-          <img className='h-7 ' src={World} alt="" />
+          <img className='h-7' src={World} alt='' />
           <h1>تجربة فريدة وجديدة</h1>
         </div>
 
         <div className='advantage_item'>
-          <img className='h-7 ' src={Daily} alt="" />
+          <img className='h-7' src={Daily} alt='' />
           <h1>إضافات يوميه</h1>
         </div>
 
         <div className='advantage_item'>
-          <img className='h-7 ' src={Key} alt="" />
+          <img className='h-7' src={Key} alt='' />
           <h1>خصوصية فائقة</h1>
         </div>
-
       </section>
 
+      <section id='templates' className='relative text-center mb-24'>
+        <h1 className='text-[#333333] text-5xl'>
+          <span className='text-purple70'>مكتبة</span> القوالب الجاهزه
+        </h1>
+        <p>
+          اختر القالب الذي يعكس ذوقك الفريد ويمثل رؤيتك بأبهى شكل, اجعل التصميم يعكس هوية مشروعك بكل أناقة
+          واحترافية.
+        </p>
+        <img className='lg:ml-[200px] mb-2' src={Arrow} alt='' />
 
-
-      <section className=' relative text-center mb-24'>
-
-        <h1 className='text-[#333333] text-5xl '><span className='text-purple70'>مكتبة</span> القوالب الجاهزه</h1>
-        <p>اختر القالب الذي يعكس ذوقك الفريد ويمثل رؤيتك بأبهى شكل , اجعل التصميم يعكس هوية مشروعك بكل أناقة واحترافية.</p>
-        <img className=' lg:ml-[200px] mb-2' src={Arrow} alt="" />
-
-
-
-        <div className='text-white text-center flex items-center w-[90%] justify-center m-auto gap-4  gap-y-7 flex-wrap '>
-          <Templates img={"https://mustafagamal51112.github.io/mustafagamal51112/db/khair.png"} title="موقع خير" />
-          <Templates img={"https://mustafagamal51112.github.io/mustafagamal51112/db/ktaby.png"} title="موقع كتابي" />
-          <Templates img={"https://mustafagamal51112.github.io/mustafagamal51112/db/zaman.png"} title="موقع زمن" />
-          <Templates img={"https://mustafagamal51112.github.io/mustafagamal51112/db/we-school.png"} title="موقع وي" />
-          <Templates img={"https://mustafagamal51112.github.io/mustafagamal51112/db/khair.png"} title="موقع خير" />
-          <Templates img={"https://mustafagamal51112.github.io/mustafagamal51112/db/ktaby.png"} title="موقع كتابي" />
-          <Templates img={"https://mustafagamal51112.github.io/mustafagamal51112/db/zaman.png"} title="موقع زمن" />
-          <Templates img={"https://mustafagamal51112.github.io/mustafagamal51112/db/we-school.png"} title="موقع وي" />
-
+        <div className='text-white text-center flex items-center w-[90%] justify-center m-auto gap-4 gap-y-7 flex-wrap'>
+          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/khair.png'} title='موقع خير' />
+          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/ktaby.png'} title='موقع كتابي' />
+          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/zaman.png'} title='موقع زمن' />
+          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/we-school.png'} title='موقع وي' />
+          {isShowMore && (
+            <>
+          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/khair.png'} title='موقع خير' />
+          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/ktaby.png'} title='موقع كتابي' />
+          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/zaman.png'} title='موقع زمن' />
+          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/we-school.png'} title='موقع وي' />
+            </>
+          )}
         </div>
 
-        <button className='flex flex-row-reverse items-center gap-2 m-auto  text-xl mt-10'> <h1>شاهد المزيد </h1> <HiArrowLeft /></button>
-
-
+        <button onClick={() => setIsShowMore(!isShowMore)} className='flex flex-row-reverse items-center gap-2 m-auto text-xl mt-10'>
+          <h1>شاهد {!isShowMore ? 'المزيد' : 'القليل'} </h1> <HiArrowLeft />
+        </button>
       </section>
 
-
-
-
-      <section className='mt-10'>
+      <section id='recommendation' className='mt-10'>
         <h1 className='text-4xl text-primary text-center font-semibold'>التوصيات</h1>
 
-
         <div className='flex flex-col md:flex-row gap-y-20 items-center justify-center w-[90%] mt-16 mx-auto gap-5'>
-
-          <Recommendation img={Man} name={"مصطفي جمال"} p={"موقع رائع وجميل وانصح به بشدة . لقد اذهلني جدا . موقع رائع وجميل وانصح به بشدة . لقد اذهلني جداموقع رائع وجميل وانصح به بشدة . لقد اذهلني جدا"} />
-          <Recommendation img={Man} name={"مصطفي جمال"} p={"موقع رائع وجميل وانصح به بشدة . لقد اذهلني جدا . موقع رائع وجميل وانصح به بشدة . لقد اذهلني جداموقع رائع وجميل وانصح به بشدة . لقد اذهلني جدا"} />
-          <Recommendation img={Man} name={"مصطفي جمال"} p={"موقع رائع وجميل وانصح به بشدة . لقد اذهلني جدا . موقع رائع وجميل وانصح به بشدة . لقد اذهلني جداموقع رائع وجميل وانصح به بشدة . لقد اذهلني جدا"} />
-
-
-
+          <Recommendation
+            img={Man}
+            name={'مصطفي جمال'}
+            p={
+              'موقع رائع وجميل وانصح به بشدة. لقد اذهلني جدا. موقع رائع وجميل وانصح به بشدة. لقد اذهلني جداموقع رائع وجميل وانصح به بشدة. لقد اذهلني جدا'
+            }
+          />
+          <Recommendation
+            img={Man}
+            name={'مصطفي جمال'}
+            p={
+              'موقع رائع وجميل وانصح به بشدة. لقد اذهلني جدا. موقع رائع وجميل وانصح به بشدة. لقد اذهلني جداموقع رائع وجميل وانصح به بشدة. لقد اذهلني جدا'
+            }
+          />
+          <Recommendation
+            img={Man}
+            name={'مصطفي جمال'}
+            p={
+              'موقع رائع وجميل وانصح به بشدة. لقد اذهلني جدا. موقع رائع وجميل وانصح به بشدة. لقد اذهلني جداموقع رائع وجميل وانصح به بشدة. لقد اذهلني جدا'
+            }
+          />
         </div>
-
       </section>
 
-
-
-
-      <Footer />
-
-
-
+      <footer id='footer'>
+        <Footer />
+      </footer>
 
     </main>
   );
-}
+};
 
 export default Home;
 
@@ -161,11 +162,11 @@ function NavBar() {
 
 
       <div className=' hidden lg:flex  items-center justify-between gap-5 whitespace-nowrap '>
-        <div className='Nav_Item'><h1>تواصل معنا</h1> <img src={CallIcon} alt="" /></div>
-        <div className='Nav_Item'><h1>شركاؤنا</h1> <img src={PartenersIcon} alt="" /></div>
-        <div className='Nav_Item'><h1>الاقسام</h1> <img src={SectionsIcon} alt="" /></div>
         <div className='Nav_Item'><h1>الملف الشخصي</h1> <img src={ProfileIcon} alt="" /></div>
-        <div className='Nav_Item'><h1>الصفحة الرئيسية</h1> <img src={HomeIcon} alt="" /></div>
+        <a href="#footer" className='Nav_Item'><h1>تواصل معنا</h1> <img src={CallIcon} alt="" /></a>
+        <a href='#recommendation' className='Nav_Item'><h1>التوصيات</h1>  <img src={PartenersIcon} alt="" /> </a>
+        <a href='#templates' className='Nav_Item'><h1>القوالب</h1> <img src={SectionsIcon} alt="" /></a>
+        <a href='#header' className='Nav_Item'><h1>الصفحة الرئيسية</h1> <img src={HomeIcon} alt="" /></a>
       </div>
 
       <div className='flex items-center justify-around gap-3'>
@@ -183,16 +184,16 @@ function NavBar() {
 
       {
         isSidebarOpen && (
-          <aside className='absolute top-0 left-0 h-screen w-[250px] bg-primary flex flex-col  items-center justify-around z-[50]'>
+          <aside className='fixed top-0 left-0 h-[100vh] w-[250px] bg-primary flex flex-col  items-center justify-around z-[50]  '>
 
             <div className='flex items-center  '><HiMenuAlt1 className='text-2xl text-white cursor-pointer' onClick={toggleSidebar} /></div>
 
             <div className=' flex flex-col-reverse  items-center justify-between gap-8 whitespace-nowrap '>
-              <div className='Side_Item'><h1>تواصل معنا</h1> <img src={CallIcon} alt="" /></div>
-              <div className='Side_Item'><h1>شركاؤنا</h1> <img src={PartenersIcon} alt="" /></div>
-              <div className='Side_Item'><h1>الاقسام</h1> <img src={SectionsIcon} alt="" /></div>
               <div className='Side_Item'><h1>الملف الشخصي</h1> <img src={ProfileIcon} alt="" /></div>
-              <div className='Side_Item'><h1>الصفحة الرئيسية</h1> <img src={HomeIcon} alt="" /></div>
+              <a href="#footer" className='Side_Item'><h1>تواصل معنا</h1> <img src={CallIcon} alt="" /></a>
+              <a href='#recommendation' className='Side_Item'><h1>التوصيات</h1>  <img src={PartenersIcon} alt="" /></a>
+              <a href='#templates' className='Side_Item'><h1>القوالب</h1> <img src={SectionsIcon} alt="" /></a>
+              <a href='#header' className='Side_Item'><h1>الصفحة الرئيسية</h1> <img src={HomeIcon} alt="" /></a>
             </div>
 
 
@@ -256,7 +257,7 @@ function Recommendation({ img, p, name }) {
 
 function Footer() {
   return (
-    <footer className='w-full  flex md:items-start pt-14 pb-5 md:flex-row-reverse flex-col items-center justify-around gap-4 mt-28 text-right  bg-gradient-to-r from-[#43CFC6] to-[#C8ADEF] '>
+    <div className='w-full  flex md:items-start pt-14 pb-5 md:flex-row-reverse flex-col items-center justify-around gap-4 mt-28 text-right  bg-gradient-to-r from-[#43CFC6] to-[#C8ADEF] '>
 
 
       <section className='flex flex-col gap-4 text-white text-center'>
@@ -266,7 +267,7 @@ function Footer() {
           <h2>+201276071829</h2>
         </Link>
         <Link to="mailto:mustafagamal51112@gmail.com">Mustafagamal51112@gmail.com</Link>
-        
+
         <div className="flex items-center justify-end gap-4">
           <Link to="https://www.facebook.com/mustafa.gamal.9231712/" target='_blank' className="flex items-center">
             <FaFacebook />
@@ -282,31 +283,31 @@ function Footer() {
 
 
 
-      
+
       <section className='flex flex-col gap-4 text-white md:text-right  text-center  md:mt-0  mt-6'>
-        
-      <h1 className='font-semibold text-3xl'>المشاريع السابقة</h1>
 
-      <Link to={'https://we-school.vercel.app'}  className='text-xl  '>وي</Link>
-      <Link to={'https://ktaby.vercel.app'}  className='text-xl  '>كتابي</Link>
-      <Link to={'https://zaman-web.vercel.app'}  className='text-xl  '>زمن</Link>
-      <Link to={'https://khair-ten.vercel.app'}  className='text-xl  '>خير</Link>
+        <h1 className='font-semibold text-3xl'>المشاريع السابقة</h1>
 
+        <Link to={'https://we-school.vercel.app'} className='text-xl  '>وي</Link>
+        <Link to={'https://ktaby.vercel.app'} className='text-xl  '>كتابي</Link>
+        <Link to={'https://zaman-web.vercel.app'} className='text-xl  '>زمن</Link>
+        <Link to={'https://khair-ten.vercel.app'} className='text-xl  '>خير</Link>
 
-      </section>
-      
-
-
-      <section  className='flex flex-col gap-4  text-white  text-center md:mt-0  mt-6'>
-      <h1 className='font-semibold text-3xl'>قل مرحبا</h1>
-
-      <ContactForm />
 
       </section>
 
 
 
-    </footer>
+      <section className='flex flex-col gap-4  text-white  text-center md:mt-0  mt-6'>
+        <h1 className='font-semibold text-3xl'>قل مرحبا</h1>
+
+        <ContactForm />
+
+      </section>
+
+
+
+    </div>
   )
 
 }
@@ -333,8 +334,8 @@ function ContactForm() {
     const { name, email, message } = formData;
     if (name === '' || email === '' || message === '') {
       toast.error('يرجي تعبئة جميع الحقول');
-      
-    }else{
+
+    } else {
       const mailtoLink = `mailto:Mustafagamal51112@gmail.com?subject=New Inquiry&body=Name: ${name}%0D%0AEmail: ${email}%0D%0AMessage: ${message}`;
       window.location.href = mailtoLink;
     }

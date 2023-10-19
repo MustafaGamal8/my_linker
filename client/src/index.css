@@ -6,19 +6,28 @@
 
 *{
   font-family: 'Tajawal', sans-serif;
-  
   user-select: none;
   -webkit-user-drag: none;
+  scroll-behavior: smooth;
+  
 }
 
 
 body {
   background: #fbfbfb;
+  text-align: right;
 }
 
 .cold_filter{
   
   filter: grayscale(0.84) hue-rotate(20deg)  saturate(2.2) contrast(1.1) ;
+}
+
+aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
 }
 
 

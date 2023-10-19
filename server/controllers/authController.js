@@ -71,8 +71,7 @@ const user = await UserModel.findOne({ email: googleUser._json.email });
 
 if (user) {
   const token = jwt.sign({ userId: user._id }, process.env.SECRET, { expiresIn: '1d' });
-  console.log(token)
-  const redirectUrl = `https://mylinker.vercel.app/auth/login?token=${token}`;
+  const redirectUrl = `https://mylinker.vercel.app/auth/provider?token=${token}`;
   return res.redirect(redirectUrl)
 } else {  
   const userObj = new UserModel({
@@ -103,7 +102,7 @@ const signUpOrLoginWithFacebook = asyncHandler(async (req, res) => {
 
   if (user) {
     const token = jwt.sign({ userId: user._id }, process.env.SECRET, { expiresIn: '1d' });
-    const redirectUrl = `https://mylinker.vercel.app/auth/login?token=${token}`;
+    const redirectUrl = `https://mylinker.vercel.app/auth/provider?token=${token}`;
     return res.redirect(redirectUrl)
     
   }else{

@@ -2,17 +2,17 @@ import {  Route, Routes ,Navigate } from "react-router-dom"
 import Profile from './pages/Profile';
 import './index.css'
 import Auth from "./pages/auth";
-import MouseEffect from './components/mouseEffect';
 import { ToastContainer  } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import TemplateOne from "./templates/template_one";
 import TemplateTwo from "./templates/template_two";
 import TemplateThree from "./templates/template_three";
 import Home from "./pages/Home";
+import toastConfig from "./config/toastConfig";
 
 function App() {
   
-  const IsMobile = 1200 > window.innerWidth
+  const config = toastConfig(1000 > window.innerWidth);
 
 
 
@@ -41,15 +41,7 @@ function App() {
     
     
     <ToastContainer
-    theme="colored"
-    position="top-center"
-    autoClose={1000}
-    pauseOnHover={false}
-    rtl={true}
-    limit={3} 
-    style={{
-      width: IsMobile ? '70%' : '35%', 
-    }}
+    {...config}
      />
     </main>
   )
