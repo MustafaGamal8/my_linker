@@ -2,52 +2,62 @@
 const asyncHandler = require('../middlewares/asyncHandler');
 const UserModel = require('../models/userModel');
 const bcrypt = require('bcrypt');
-const jwt  = require("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 
 
 
-const signUp = asyncHandler(  async (req, res) => {
-    const form = req.body
+const signUp = asyncHandler(async (req, res) => {
+  const form = req.body
 
-    if (!form.email || !form.password) {
-      return res.status(400).json({msg:"all fields are required !! "})
-    }
-    
-    
-    const isEmailExist  = await UserModel.findOne({email:form.email})
-    
-    if (isEmailExist) {
-      return res.status(400).json({error:"email already exists"})
-    }
-
-    const hashedPwd = await bcrypt.hash(form.password,10) 
-
-    const userObj = new UserModel({
-      email:form.email,
-      password:hashedPwd
-    }) 
-
-
-    userObj.authProvider.provider = "local"    
-    await userObj.save()
-    res.send({msg: "account created successfully" })
-    
+  if (!form.email || !form.password) {
+    return res.status(400).json({ message: "all fields are required !! " })
   }
+
+
+  const user = await UserModel.findOne({ email: form.email })
+
+  if (user && user.authProvider.provider == "google") {
+    return res.status(400).json({ error: "البريد الالكتروني مستخدم بالفعل عن طريق جوجل " })
+  }
+
+  if (user) {
+    return res.status(400).json({ error: "البريد الالكتروني مستخدم بالفعل" })
+  }
+
+  const hashedPwd = await bcrypt.hash(form.password, 10)
+
+  const userObj = new UserModel({
+    email: form.email,
+    displayName: form.displayName,
+    password: hashedPwd,
+    authProvider: {
+      provider: "local"
+    }
+  })
+
+  await userObj.save()
+  res.send({ message: "تم تسجيلك بنجاح" })
+
+}
 )
 
 
 const login = asyncHandler(async (req, res) => {
-  const user = await UserModel.findOne({email:req.body.email})
-  
+  const user = await UserModel.findOne({ email: req.body.email, authProvider: { provider: "local" } })
 
   if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
-    return res.status(403).json({ error: "Email or Password are Wrong" });
+    return res.status(403).json({ error: "البريد الالكتروني أو كلمة المرور غير صحيح" });
   }
 
-  const token = await jwt.sign({userId:user._id},process.env.SECRET , { expiresIn: '1d' })
+  const token = await jwt.sign({ userId: user._id }, process.env.SECRET, { expiresIn: '1d' })
 
-  res.setHeader("X-Auth-Token",token);
-  res.json({msg:"login successfully"})
+  res.json({
+    token, message: "تم تسجيل الدخول بنجاح", user: {
+      email: user.email,
+      displayName: user.displayName,
+      details: user.details,
+    }
+  })
 
 })
 
@@ -60,65 +70,66 @@ const login = asyncHandler(async (req, res) => {
 
 const signUpOrLoginWithGoogle = asyncHandler(async (req, res) => {
   if (!req.user) {
-  // Google authentication failed
-  return res.status(401).json({ message: 'Google authentication failed.' });
-}
+    // Google authentication failed
+    return res.status(401).json({ message: 'Google authentication failed.' });
+  }
 
-// Check if the user already exists in your database
-const googleUser = req.user;
-const user = await UserModel.findOne({ email: googleUser._json.email });
-
-
-if (user) {
-  const token = jwt.sign({ userId: user._id }, process.env.SECRET, { expiresIn: '1d' });
+  // Check if the user already exists in your database
+  const googleUser = req.user;
+  const user = await UserModel.findOne({ email: googleUser._json.email });
+  
+  
+  if (!user) {
+    const userObj = new UserModel({
+      displayName: googleUser.displayName,
+      email: googleUser._json.email,
+      authProvider: {
+        provider: "google",
+        providerUserId: googleUser.id
+      }
+    });
+    await userObj.save();
+  }
+  
+  const newUser = await UserModel.findOne({ email: googleUser._json.email });
+  const token = jwt.sign({ userId: newUser._id }, process.env.SECRET, { expiresIn: '1d' });
   const redirectUrl = `https://mylinker.vercel.app/auth/provider?token=${token}`;
   return res.redirect(redirectUrl)
-} else {  
-  const userObj = new UserModel({
-    displayName:googleUser.displayName,
-    email: googleUser._json.email,
-    "authProvider.providerUserId":googleUser.id
-  });
-
-  userObj.authProvider.provider = "google"   
-  await userObj.save();  
-  return res.json({ message: 'Account created successfully' });
-}
-
-
 });
 
 
 const signUpOrLoginWithFacebook = asyncHandler(async (req, res) => {
-  
+
   if (!req.user) {
     // Facebook authentication failed
-    return res.status(401).json({ message: 'Facebook authentication failed.' });
+    return res.status(401).json({ message: 'Facebook authentication failed' });
   }
-  
+
   // Check if the user already exists in your database
   const facebookUser = req.user;
   const user = await UserModel.findOne({ "authProvider.providerUserId": facebookUser.id });
 
-  if (user) {
-    const token = jwt.sign({ userId: user._id }, process.env.SECRET, { expiresIn: '1d' });
-    const redirectUrl = `https://mylinker.vercel.app/auth/provider?token=${token}`;
-    return res.redirect(redirectUrl)
-    
-  }else{
+  if (!user) {
     const userObj = new UserModel({
-      displayName:facebookUser.displayName,
-      "authProvider.providerUserId":facebookUser.id
+      displayName: facebookUser.displayName,
+      authProvider: {
+        provider: "facebook",
+        providerUserId: facebookUser.id
+      }
     });
-
-    userObj.authProvider.provider = "facebook"
     await userObj.save();
-    return res.json({ message: 'Account created successfully' });
+    return res.json({ message: 'تم تسجيل الحساب بنجاح' });
   }
 
-    
   
-} )
+  const newUser = await UserModel.findOne({ "authProvider.providerUserId": facebookUser.id });
+
+  const token = jwt.sign({ userId: newUser._id }, process.env.SECRET, { expiresIn: '1d' });
+  const redirectUrl = `https://mylinker.vercel.app/auth/provider?token=${token}`;
+  return res.redirect(redirectUrl)
+
+
+})
 
 
 
@@ -126,4 +137,4 @@ const signUpOrLoginWithFacebook = asyncHandler(async (req, res) => {
 
 
 
-module.exports = { signUp ,login, signUpOrLoginWithGoogle,signUpOrLoginWithFacebook}
+module.exports = { signUp, login, signUpOrLoginWithGoogle, signUpOrLoginWithFacebook }

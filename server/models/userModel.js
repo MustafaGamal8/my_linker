@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const DetailsSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
+  picture : Buffer,
   email: String,
   followLink: String,
   about: String,

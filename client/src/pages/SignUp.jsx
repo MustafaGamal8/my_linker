@@ -1,12 +1,13 @@
 import React from 'react';
 import { useState } from "react";
 import { BsCheckLg, BsLink45Deg } from "react-icons/bs"
-import { HiEye, HiEyeOff, HiLockClosed, HiOutlineMail } from "react-icons/hi"
+import { HiEye, HiEyeOff, HiLockClosed, HiOutlineMail, HiUser } from "react-icons/hi"
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import bg2 from "../assets/bg2.svg"
 import { Link } from "react-router-dom";
 import loginSvg from '../assets/login.svg'
+import SignUpHandler from '../functions/SignUpHandler';
 
 const SignUp = () => {
   return (
@@ -95,10 +96,15 @@ const SignUpForm = () => {
 
 
   const formValiditon = ()=>{
-    const {email,password} = formData
-    if(email === "" || password === ""){
-      toast.error("يرجي ادخال البريد الالكتروني وكلمة المرور")
+    const {email,password,displayName} = formData
+    if(email === "" || password === "" || displayName === ""){
+      toast.error("يرجي ادخال جميع البيانات");
       return false
+    }
+
+    if (displayName.length < 3) {
+      toast.error("الاسم يجب ان يكون على الاقل 3 حرف");
+      return false;
     }
 
     if (!email.includes("@")) {
@@ -120,13 +126,24 @@ const SignUpForm = () => {
     const response = await formValiditon()
 
     if (response){
-      toast.success("مرحبا")
-      Navigate("/profile");
+      SignUpHandler(formData.email, formData.password,formData.displayName)
     }
   };
 
   return (
     <form className="flex flex-col items-center  md:w-[80%] p-1 m-auto gap-4">
+    <div className="flex items-center p-1 w-full border border-gray-400 rounded-md">
+      <input
+        type="text"
+        placeholder="الاسم"
+        name="displayName"
+        onChange={handleInputs}
+        className="bg-transparent p-2 outline-none  w-full placeholder:text-base  placeholder:text-right  focus:placeholder:text-primary text-lg"
+      />
+      <HiUser className="text-xl text-gray-400" />
+
+    </div>
+
     <div className="flex items-center p-1 w-full border border-gray-400 rounded-md">
       <input
         type="text"

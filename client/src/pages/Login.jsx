@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import bg from "../assets/bg.svg"
 import { Link } from "react-router-dom";
+import  LoginHandler  from "../functions/LoginHandler";
 
 const Login = () => {
   return (
@@ -80,7 +81,6 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-  const Navigate = useNavigate();
 
   const togglePasswordVisible = () => {
     setIsPasswordVisible(!isPasswordVisible);
@@ -117,8 +117,7 @@ const LoginForm = () => {
     const response = await formValiditon()
 
     if (response) {
-      toast.success("مرحبا")
-      Navigate("/profile");
+       LoginHandler(formData.email, formData.password)
     }
 
   };

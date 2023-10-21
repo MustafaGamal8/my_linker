@@ -1,17 +1,30 @@
-import React from 'react';
-import { useCookies } from 'react-cookie';
+import React, { useEffect, useState } from 'react';
+import Cookies from 'universal-cookie';
 import { CiLogout } from 'react-icons/ci';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import LogoutHandler from '../functions/LogoutHandler';
 
 const Profile = () => {
-  const [cookies] = useCookies([]);
+  const [user, setUser] = useState()
 
-  console.log(cookies)
+
+
+  const cookies = new Cookies();
+  const token = cookies.get('token');
+  const navigate =  useNavigate()
+  
+  useEffect(() => {
+    if (!token) {
+      navigate('/auth/login')      
+    }else{
+      setUser(JSON.parse(localStorage.getItem('user')))    }
+    
+  },[token])
   
   return (
     <section className='h-full'>
       <nav className=" w-full h-16 rounded-b flex items-center justify-between  bg-white px-5">
-        <Link to={'/'} className='text-red-500 text-2xl cursor-pointer p-1 hover:text-red-600'><CiLogout /></Link>
+        <Link onClick={LogoutHandler} to={"/auth/login"}  className='text-red-500 text-2xl cursor-pointer p-1 hover:text-red-600'><CiLogout /></Link>
 
         <img
           src="/assets/logo.png"
@@ -32,8 +45,8 @@ const Profile = () => {
             {/* <img src="/assets/cover.jpeg" alt="" className=' w-full xl:w-[60%] m-auto lg:h-80 md:h-60 h-40  object-cover  rounded ' /> */}
           </div>
 
-          <h1 className='text-3xl font-semibold' >مصطفي جمال السيد</h1>
-          <p className='text-primary text-2xl  font-semibold'>مبرمج مواقع</p>
+          <h1 className='text-3xl font-semibold' >{user?.displayName}</h1>
+          <p className='text-primary text-xl  font-semibold'>{user?.email} </p>
 
         </div>
 
@@ -64,8 +77,4 @@ const Profile = () => {
 
 export default Profile;
 
-
-
-
-{/* style 2 */ }
 

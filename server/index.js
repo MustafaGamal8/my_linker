@@ -5,10 +5,13 @@ const { default: mongoose } = require('mongoose');
 require('dotenv').config();
 const passport = require('passport');
 const UserModel = require('./models/userModel');
+const cors = require('cors');
+
 
 
 const app = express();
 app.use(express.static('public'))
+app.use(cors());
 
 // Configure Passport to use sessions
 app.use(require('express-session')({ secret: process.env.SECRET, resave: true, saveUninitialized: true }));
@@ -30,18 +33,12 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.get('/users', async (req, res) => {
-  const key = req.query.key
-
-  if (key && key == "mustafa") {
-    const users = await UserModel.find()
-    return res.send(users)
-  }
-  res.send("Please Enter the Secret Key")
-})
 
 // Auth routes
 app.use("/auth", require('./routes/authRoutes'));
+
+// User routes
+app.use("/users", require('./routes/userRoutes'));
 
 // Profile routes
 app.use("/profile", require('./routes/profileRoutes'));

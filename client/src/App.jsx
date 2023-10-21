@@ -15,16 +15,8 @@ function App() {
   const config = toastConfig(1000 > window.innerWidth);
 
 
-
-
-  
-
-
-
   return (
     <main className={`w-full h-screen overflow-y-auto `}>
-      
-      
 
     <Routes>
       <Route path="/"  element={<Home />} />
@@ -33,12 +25,7 @@ function App() {
       {/* <Route path="/temp/one" element={<TemplateOne />} />
       <Route path="/temp/two" element={<TemplateTwo />} />
       <Route path="/temp/three" element={<TemplateThree />} /> */}
-
     </Routes>
-
-
-
-    
     
     <ToastContainer
     {...config}

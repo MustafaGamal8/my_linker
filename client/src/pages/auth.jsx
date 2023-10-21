@@ -5,13 +5,14 @@ import {useCookies} from "react-cookie"
 
 import MouseEffect from '../components/mouseEffect';
 import SignUp from "./SignUp";
+import Cookies from 'universal-cookie';
 
 
 
 
 
 const Auth = () => {
-  const [cookies, setCookie] = useCookies([]);
+  const cookies = new Cookies()
   const { mood } = useParams();
   const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ const Auth = () => {
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
         if (token) {
-           setCookie('Token', token, { path: '/' });
+          cookies.set('token', token, { path: '/' });
           navigate('/profile');
         }
       }
@@ -29,9 +30,6 @@ const Auth = () => {
 
     handleToken();
   }, [mood]);
-
-
-
 
   return (
     <main className="cursor-none">
