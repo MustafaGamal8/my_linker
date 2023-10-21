@@ -10,7 +10,7 @@ const UserFetchHandler = async (token) => {
         "x-auth-token": token
       }})
       
-      localStorage.setItem('user', JSON.stringify(response.data))
+      localStorage.setItem('user', JSON.stringify(response.data.user))
       
   } catch (error) {
     
