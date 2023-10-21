@@ -3,23 +3,39 @@ import Cookies from 'universal-cookie';
 import { CiLogout } from 'react-icons/ci';
 import { Link, useNavigate } from 'react-router-dom';
 import LogoutHandler from '../functions/LogoutHandler';
+import UserFetchHandler from './../functions/UserFetchHandller';
 
 const Profile = () => {
   const [user, setUser] = useState()
-
-
 
   const cookies = new Cookies();
   const token = cookies.get('token');
   const navigate =  useNavigate()
   
   useEffect(() => {
+    const GetUserDataHandler =  async()=>{
     if (!token) {
       navigate('/auth/login')      
-    }else{
-      setUser(JSON.parse(localStorage.getItem('user')))    }
+    }
     
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (!user) {
+     await  UserFetchHandler(token)      
+    }    
+    setUser(JSON.parse(localStorage.getItem('user')))  
+      
+    }
+
+    GetUserDataHandler()
   },[token])
+
+
+
+
+
+
+
+
   
   return (
     <section className='h-full'>

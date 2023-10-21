@@ -118,7 +118,6 @@ const signUpOrLoginWithFacebook = asyncHandler(async (req, res) => {
       }
     });
     await userObj.save();
-    return res.json({ message: 'تم تسجيل الحساب بنجاح' });
   }
 
   

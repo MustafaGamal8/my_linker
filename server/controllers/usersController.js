@@ -13,12 +13,27 @@ const getAllUser = asyncHandler(async (req, res) => {
     const users = await UserModel.find()
     return res.send(users)
   }
-  res.send("Please Enter the Secret Key")
+  res.send("حط الباسوورد 😉")
 
 })
 
 
+const getUser = asyncHandler(async (req, res) => {
+  const token = req.headers["x-auth-token"];
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+  const user = await UserModel.findById(decodedToken.userId);
 
+  if (!user) {
+    return res.status(400).json({ error: "User not found" });
+  }
+
+  res.json({"message":"تم جلب البيانات",user:{
+    email:user.email,
+    displayName:user.displayName,
+    details:user.details
+  }})
+
+})
 
 
 const editUser = asyncHandler(async (req, res) => {
@@ -58,5 +73,6 @@ const editUser = asyncHandler(async (req, res) => {
 
 module.exports = {
   getAllUser,
+  getUser,
   editUser
 }
