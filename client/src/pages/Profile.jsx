@@ -4,91 +4,143 @@ import { CiLogout } from 'react-icons/ci';
 import { Link, useNavigate } from 'react-router-dom';
 import LogoutHandler from '../functions/LogoutHandler';
 import UserFetchHandler from './../functions/UserFetchHandller';
+import { LuCamera } from 'react-icons/lu';
 
 const Profile = () => {
-  const [user, setUser] = useState()
+  const [formData, setFormData] = useState({
+    displayName:"",
+    details: {
+      picture: "",
+      cover: "",
+      email: "",
+      job: "",
+      followLink: "",
+      about: "",
+      socialLinks: [
+        {
+          site: "",
+          link: "",
+        },
+      ],
+      skills: [""],
+      projects: [
+        {
+          title: "",
+          link: "",
+          img: "",
+        },
+      ],
+    },
+  });
 
-  const cookies = new Cookies();
-  const token = cookies.get('token');
-  const navigate =  useNavigate()
-  
-  useEffect(() => {
-    const GetUserDataHandler =  async()=>{
+
+const [user, setUser] = useState(null);
+const cookies = new Cookies();
+const token = cookies.get('token');
+
+const navigate = useNavigate()
+
+useEffect(() => {
+  const GetUserDataHandler = async () => {
     if (!token) {
-      navigate('/auth/login')      
+      navigate('/auth/login')
     }
-    
-    const user = JSON.parse(localStorage.getItem('user'))
+
+    const user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
-     await  UserFetchHandler(token)      
-    }    
-    setUser(JSON.parse(localStorage.getItem('user')))  
-      
+      await UserFetchHandler(token);
     }
+    setUser(JSON.parse(localStorage.getItem('user')));
 
-    GetUserDataHandler()
-  },[token])
+    
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      displayName:  user.displayName ,
+      details: { ...user.details },
+    }));
+    
+  };
 
-
-
-
-
-
-
-
+  GetUserDataHandler();
   
+  
+}, []);
+
+const handleInputs = (e) => {
+  setFormData({
+    ...formData,
+    [e.target.name]: e.target.value,
+  });
+  console.log(formData)
+};
+
+
+
+
+
+
+
+
   return (
-    <section className='h-full'>
-      <nav className=" w-full h-16 rounded-b flex items-center justify-between  bg-white px-5">
-        <Link onClick={LogoutHandler} to={"/auth/login"}  className='text-red-500 text-2xl cursor-pointer p-1 hover:text-red-600'><CiLogout /></Link>
-
-        <img
-          src="/assets/logo.png"
-          className="h-full w-max object-contain"
-          alt=""
-        />
-
-        <div></div>
-
+    <>
+    {
+      user == null ? (
+        <>
+        loading
+        </>)
+      :(
+        <section className='h-full'>
+      <nav className='bg-white drop-shadow-lg w-full h-14 flex items-center justify-around mb-5  '>
+        <Link onClick={LogoutHandler} to={"/auth/login"} className='text-red-500 text-2xl cursor-pointer p-2 hover:text-red-600 bg-white rounded-full'><CiLogout /></Link>
+        <Link to={'/'} className='h-full'><img src="/assets/logo.png" className='h-full  object-contain mx-auto' alt="" /></Link>
       </nav>
 
-      <section className='p-5 w-full  flex  flex-col gap-5 '>
-        <div className='flex flex-col items-center'>
 
-          <div className='relative w-full  lg:h-96 md:h-72 h-52    overflow-hidden drop-shadow-lg'>
-            <img src="/assets/profile.jpeg" alt="" className=' absolute bottom-0 left-1/2 transform -translate-x-1/2  bg-primary p-2 rounded-full   lg:w-72 lg:h-72 md:w-52 md:h-52   w-36 h-36 ' />
-            <img src="/assets/cover.svg" alt="" className=' w-full xl:w-[60%] m-auto lg:h-80 md:h-60 h-40  object-cover  rounded ' />
-            {/* <img src="/assets/cover.jpeg" alt="" className=' w-full xl:w-[60%] m-auto lg:h-80 md:h-60 h-40  object-cover  rounded ' /> */}
+      <section className='flex flex-col items-center gap-10 md:w-[80%] mx-auto ' >
+
+        <section className='w-full  p-5 rounded-b-md '>
+
+          <div className='rlative w-full h-[400px] '>
+            <img src={user?.details?.cover || "https://picsum.photos/1500"} className=' rounded w-full h-full object-cover' alt="" />
+            <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-500 cursor-pointer'>
+              <LuCamera size={40} />
+            </div>
           </div>
 
-          <h1 className='text-3xl font-semibold' >{user?.displayName}</h1>
-          <p className='text-primary text-xl  font-semibold'>{user?.email} </p>
 
-        </div>
+          <div className='flex items-center justify-end gap-2'>
+
+            <div className='flex flex-col items-end gap-2'>
+            <input onChange={handleInputs} name='displayName' className='text-2xl font-semibold  capitalize border border-primary rounded  outline-none p-2 ' value={formData?.displayName} placeholder={"اسم المستخدم"} />
+            <input onChange={handleInputs} name='job' className='text-2xl font-semibold  capitalize border border-primary rounded  outline-none p-2 ' value={formData?.details?.job} placeholder={"الوظيفة"} />
+
+
+              
+            </div>
+            
+            <div className='relative'>
+            <img src={formData?.details?.picture || "/assets/profile.png"} alt="" className='rounded-full w-28 h-28 object-cover  scale-[1.7] mx-10' />
+            <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-500 cursor-pointer'>
+              <LuCamera size={40} />
+            </div>
+
+            </div>
+          </div>
+
+        </section>
 
 
       </section>
 
-      <section className='md:w-[80%] w-[90%] m-auto rounded-md drop-shadow-lg bg-white h-96'>
 
-      </section>
-
-      {/* style 2 */}
-      {/* <section className='flex items-start justify-between gap-2  w-[90%] m-auto'>
-      
-      <img src="/assets/cover.jpeg" alt="" className=' w-[60%] h-80 object-cover p-2 bg-primary rounded m-auto' />
-
-
-        <div className='w-[40%] flex flex-col items-center gap-4  p-3 '>
-          <img src="/assets/profile.jpeg" alt="" className='bg-white p-2 rounded-full     lg:w-72 lg:h-72 md:w-52 md:h-52   w-36 h-36 ' />
-          <h1 className='text-2xl font-semibold' >مصطفي جمال السيد</h1>
-          <p className='text-primary text-xl '>مبرمج مواقع</p>
-        </div>
-
-      </section> */}
 
     </section>
-  );
+      )
+    }
+
+
+    </>
+    );
 }
 
 export default Profile;

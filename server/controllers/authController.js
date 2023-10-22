@@ -76,13 +76,15 @@ const signUpOrLoginWithGoogle = asyncHandler(async (req, res) => {
 
   // Check if the user already exists in your database
   const googleUser = req.user;
-  const user = await UserModel.findOne({ email: googleUser._json.email });
-  
+  const user = await UserModel.findOne({ email: googleUser._json.email });  
   
   if (!user) {
     const userObj = new UserModel({
       displayName: googleUser.displayName,
       email: googleUser._json.email,
+      details: {
+        picture: googleUser._json.picture        
+      },
       authProvider: {
         provider: "google",
         providerUserId: googleUser.id

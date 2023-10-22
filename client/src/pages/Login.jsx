@@ -8,13 +8,14 @@ import { Link } from "react-router-dom";
 import  LoginHandler  from "../functions/LoginHandler";
 
 const Login = () => {
+  
   return (
     <div className="flex justify-center items-center  h-[100vh]" style={{ backgroundImage: `url(${bg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
 
       <section className="bg-white drop-shadow-xl p-2 md:p-10 rounded lg:w-[35%] md:w-[50%] w-[90%] ">
         <Link to={"/"}><img src="/assets/logo.png" className='h-36 m-auto' alt="" /></Link>
         <h1 className="text-3xl font-semibold">...مرحبا بك في</h1>
-        <h1 className="text-3xl font-bold text-darkgreen mt-2">منصتنا</h1>
+        <h1 className="text-3xl font-bold text-darkgreen mt-2 ">منصتنا</h1>
 
         <section className='w-full md:w-[80%] lg:w-[60%] m-auto'>
           <Link to={"https://mylinker-server.vercel.app/auth/google"} className='flex items-center justify-center w-full p-3 gap-3 bg-white drop-shadow-md m-auto cursor-pointer rounded-lg mt-4 hover:bg-gray-50 transition-all'>
@@ -74,13 +75,13 @@ export default Login;
 
 
 
-
 const LoginForm = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
 
   const togglePasswordVisible = () => {
     setIsPasswordVisible(!isPasswordVisible);

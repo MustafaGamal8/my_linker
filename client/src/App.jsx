@@ -9,6 +9,7 @@ import TemplateTwo from "./templates/template_two";
 import TemplateThree from "./templates/template_three";
 import Home from "./pages/Home";
 import toastConfig from "./config/toastConfig";
+import NotFound from "./pages/NotFound";
 
 function App() {
   
@@ -25,6 +26,7 @@ function App() {
       {/* <Route path="/temp/one" element={<TemplateOne />} />
       <Route path="/temp/two" element={<TemplateTwo />} />
       <Route path="/temp/three" element={<TemplateThree />} /> */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
     
     <ToastContainer

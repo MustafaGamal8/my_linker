@@ -24,7 +24,7 @@ const getUser = asyncHandler(async (req, res) => {
   const user = await UserModel.findById(decodedToken.userId);
 
   if (!user) {
-    return res.status(400).json({ error: "User not found" });
+    return res.status(400).json({ error: "لم يتم العثور على المستخدم" });
   }
 
   res.json({"message":"تم جلب البيانات",user:{

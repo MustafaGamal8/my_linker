@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const DetailsSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
   picture : Buffer,
+  cover:Buffer,
   email: String,
+  job: String,
   followLink: String,
   about: String,
   socialLinks: [
