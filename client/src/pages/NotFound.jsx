@@ -3,7 +3,7 @@
 import React from 'react';
 import NavBar from './../components/NavBar';
 import { Link } from 'react-router-dom';
-import NotFoundSvg from '../assets/NotFound.svg';
+import NotFoundSvg from '../assets/notFound.svg';
 
 const NotFound = () => {
   return (

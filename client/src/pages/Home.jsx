@@ -147,18 +147,25 @@ export default Home;
 
 
 
+
 function Templates({ img, title }) {
-
   return (
-    <div className='w-[400px] h-[250px] rounded-lg overflow-hidden relative hover:-translate-y-4 transition-all    cursor-pointer group  drop-shadow-lg'>
-      <img className='w-full h-full object-cover group-hover:scale-110 transition-all ' src={img} alt="" />
-      <h1 className='absolute bottom-2 left-1/2 transform -translate-x-1/2 text-center w-full text-white text-xl z-[2]'>{title}</h1>
-      <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center w-full bg-black h-[15%] opacity-25 group-hover:h-full  transition-all'></div>
-
+    <div
+      className="w-[400px] h-[250px] rounded-lg overflow-hidden relative hover:-translate-y-4 transition-all cursor-pointer group drop-shadow-lg"
+    >
+      <img
+        className="w-full h-full object-cover group-hover:scale-110 transition-all"
+        src={img}
+        alt=""
+      />
+      <h1 className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-center w-full text-white text-xl z-[2]">
+        {title}
+      </h1>
+      <div
+        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center w-full bg-black h-[15%] opacity-25 group-hover:h-full transition-all"
+      ></div>
     </div>
-  )
-
-
+  );
 }
 
 
