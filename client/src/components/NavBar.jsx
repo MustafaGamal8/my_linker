@@ -10,6 +10,7 @@ import { HiMenuAlt1 } from 'react-icons/hi';
 import { Link } from "react-router-dom";
 import { CiLogout } from "react-icons/ci";
 import LogoutHandler from "../functions/LogoutHandler";
+import Cookies from "universal-cookie";
 
 function NavBar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -17,10 +18,15 @@ function NavBar() {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+  
+  const cookies = new Cookies();
+
+
 
   useEffect(() => {
-    const user = localStorage.getItem('user')
-    if (user) {
+    
+  const token =  cookies.get('token');
+    if (token) {
       setIsUserExists(true)      
     }
     
@@ -31,7 +37,7 @@ function NavBar() {
     <nav className='relative flex  justify-around flex-row-reverse  bg-primary h-[75px] w-full    '>
       <Link to={'/'}><img className='h-full w-max object-contain' src="/assets/logo.png" alt="" /></Link>
 
-      <div className=' hidden lg:flex  items-center justify-between gap-5 whitespace-nowrap '>
+      <div className=' hidden lg:flex  items-center justify-between gap-5 whitespace-nowrap    '>
         <Link to={'/profile'} className='Nav_Item'><h1>الملف الشخصي</h1> <img src={ProfileIcon} alt="" /></Link>
         <a href="/#footer" className='Nav_Item'><h1>تواصل معنا</h1> <img src={CallIcon} alt="" /></a>
         <a href='#recommendation' className='Nav_Item'><h1>التوصيات</h1>  <img src={PartenersIcon} alt="" /> </a>

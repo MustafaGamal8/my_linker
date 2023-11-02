@@ -44,3 +44,20 @@ aside {
 .advantage_item{
   @apply flex items-center justify-around  gap-2 md:border-l border-b p-2 md:w-full   relative after:absolute after:bottom-0 after:left-0  after:w-0 hover:after:w-full after:h-[6px] after:bg-secondary after:transition-all
 }
+
+
+input[type="range"] {
+  -webkit-appearance: none; 
+    appearance: none;
+   background: transparent; 
+   cursor: pointer;
+   z-index: 1;
+}
+input[type="range"]::-webkit-slider-thumb {
+   -webkit-appearance: none; 
+   appearance: none; 
+  background-color: #297EA6;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px; 
+}
