@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 
 const DetailsSchema = new mongoose.Schema({
-  picture : Buffer,
-  cover:Buffer,
+  name: String,
+  pictureUrl :String ,
+  coverUrl:String,
   email: String,
   job: String,
   followLink: String,
@@ -13,12 +14,17 @@ const DetailsSchema = new mongoose.Schema({
       link: String,
     },
   ],
-  skills: [String],
+  skills: [
+    {
+      name: String,
+      percentage: String,
+    },
+  ],
   projects: [
     {
-      title: String,
+      name: String,
       link: String,
-      img: String,
+      imgUrl: String,
     },
   ],
 }, { _id: false });

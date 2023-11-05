@@ -16,6 +16,8 @@
 body {
   background: #fbfbfb;
   text-align: right;
+  overflow-x: hidden;
+  /* direction: ltr; */
 }
 
 .cold_filter{

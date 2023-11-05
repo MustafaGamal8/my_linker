@@ -3,21 +3,26 @@ import Cookies from 'universal-cookie';
 import { CiLogout } from 'react-icons/ci';
 import { Link, useNavigate } from 'react-router-dom';
 import LogoutHandler from '../functions/LogoutHandler';
-import UserFetchHandler from './../functions/UserFetchHandller';
+import UserFetchHandler from '../functions/UserFetchHandler';
 import { LuCamera } from 'react-icons/lu';
 import followSvg from '../assets/icons/follow.svg'
 import messageSvg from '../assets/icons/message.svg'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
+import bg from '../assets/bg.svg'
+import { MdPerson, MdCamera, MdLink, MdInfoOutline } from 'react-icons/md'
+import { BsBriefcaseFill } from 'react-icons/bs'
+import { FiTrash } from 'react-icons/fi'
+import UserDataHandler from '../functions/UserDataUpdateHandler';
+import UserInitalizeHandler from '../functions/UserInitalizeHandler';
 
-import bg from '../assets/bg2.svg'
 const Profile = () => {
   const [formData, setFormData] = useState({
-    displayName: "",
     details: {
+      name: "",
       pictureUrl: "",
       coverUrl: "",
-      pictureFile: "",
-      coverFile: "",
+      pictureFile: null,
+      coverFile: null,
       email: "",
       job: "",
       followLink: "",
@@ -30,38 +35,24 @@ const Profile = () => {
       ],
       skills: [
         {
-          name: "js",
-          percentage: "80",
-        },
-        {
-          name: "ts",
-          percentage: "40",
-        },
-        {
-          name: "react",
-          percentage: "96",
+          name: "",
+          percentage: "",
         },
       ],
 
       projects: [
         {
-          title: "khair",
-          link: "http://khair-ten.vercel.app/",
-          imgUrl: "https://mustafagamal51112.github.io/mustafagamal51112/db/khair.png",
-        },
-        {
-          title: "ktaby",
-          link: "http://ktaby.vercel.app/",
-          imgUrl: "https://mustafagamal51112.github.io/mustafagamal51112/db/ktaby.png",
+          name: "",
+          link: "",
+          imgUrl: "",
         }
       ],
     },
   });
 
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const cookies = new Cookies();
-
   const navigate = useNavigate()
   const token = cookies.get('token');
 
@@ -71,17 +62,20 @@ const Profile = () => {
         navigate('/auth/login')
       }
 
-      const user = JSON.parse(localStorage.getItem('user'));
       if (!user) {
         await UserFetchHandler(token);
+        setUser(JSON.parse(localStorage.getItem('user')));
       }
-      setUser(JSON.parse(localStorage.getItem('user')));
 
-      // setFormData((prevFormData) => ({
-      //   ...prevFormData,
-      //   displayName: user.displayName,
-      //   details: { ...user.details },
-      // }));
+      let newData = { ...formData }
+      newData.details.name = user.displayName      
+      await Object.keys(newData.details).map((key) => {
+        if (user.details && user.details[key]) {
+          newData.details[key] = user.details[key]
+        }
+      })
+      setFormData(newData)
+
 
     };
 
@@ -93,42 +87,76 @@ const Profile = () => {
   // info handlers
   const handleInputs = (e) => {
     const { name, value } = e.target;
-
-    setFormData((prevData) => {
-      const updatedData = { ...prevData };
-      const nestedFields = name.split('.');
-      let target = updatedData;
-
-      for (let i = 0; i < nestedFields.length - 1; i++) {
-        target = target[nestedFields[i]];
-      }
-
-      target[nestedFields[nestedFields.length - 1]] = value;
-
-      return updatedData;
-    });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      details: {
+        ...prevFormData.details,
+        [name]: value,
+      },
+    }));
   };
   const handleImages = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-    const nameUrl = e.target.name + "Url"; 
-    const nameFile = e.target.name + "File"; 
-  
+    const nameUrl = e.target.name + "Url";
+    const nameFile = e.target.name + "File";
+
     reader.onload = (event) => {
       setFormData((prevFormData) => ({
         ...prevFormData,
         details: {
           ...prevFormData.details,
-          [nameUrl]: event.target.result, 
-          [nameFile]: file, 
+          [nameUrl]: event.target.result,
+          [nameFile]: file,
         },
       }));
     };
     reader.readAsDataURL(file);
   };
-  
+
   // _______________________________
 
+
+  // social links handlers
+  const handleAddSocialLink = () => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      details: {
+        ...prevFormData.details,
+        socialLinks: [
+          ...prevFormData.details.socialLinks,
+          {
+            site: "",
+            link: "",
+          },
+        ],
+      },
+    }));
+  };
+  const handelDeleteSocialLink = (index) => {
+    const updatedSocialLinks = [...formData.details.socialLinks];
+    updatedSocialLinks.splice(index, 1);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      details: {
+        ...prevFormData.details,
+        socialLinks: updatedSocialLinks,
+      },
+    }));
+  };
+  const handleSocialLinksInputs = (e, index) => {
+    const { name, value } = e.target;
+    const updatedSocialLinks = [...formData.details.socialLinks];
+    updatedSocialLinks[index][name] = value;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      details: {
+        ...prevFormData.details,
+        socialLinks: updatedSocialLinks,
+      },
+    }));
+  };
+  // ____________________________
 
 
   // Skills Handlers
@@ -145,7 +173,6 @@ const Profile = () => {
       },
     }));
   };
-
   const handlePercentageChange = (e) => {
     const { name, value } = e.target;
     const index = parseInt(name, 10);
@@ -159,8 +186,6 @@ const Profile = () => {
       },
     }));
   };
-
-
   const handleAddSkill = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -169,12 +194,23 @@ const Profile = () => {
         skills: [
           ...prevFormData.details.skills,
           {
-            name: "skill",
+            name: "",
             percentage: Math.floor(Math.random() * 100),
           },
         ],
       },
     }))
+  };
+  const handelDeleteSkill = (index) => {
+    const updatedSkills = [...formData.details.skills];
+    updatedSkills.splice(index, 1);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      details: {
+        ...prevFormData.details,
+        skills: updatedSkills,
+      },
+    }));
   }
   // _______________________________
 
@@ -194,7 +230,6 @@ const Profile = () => {
     }));
 
   };
-
   const handleProjectInputs = (e, index) => {
     const { name, value } = e.target;
     const updatedProjects = [...formData.details.projects];
@@ -207,9 +242,6 @@ const Profile = () => {
       },
     }));
   };
-
-
-
   const handleAddProject = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -225,15 +257,44 @@ const Profile = () => {
         ],
       },
     }))
-  }
+  };
+  const handelDeleteProject = (index) => {
+    const updatedProjects = [...formData.details.projects];
+    updatedProjects.splice(index, 1);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      details: {
+        ...prevFormData.details,
+        projects: updatedProjects,
+      },
+    }));
+  };
   // _______________________________
 
-
-
-
-
   const handleSubmit = async () => {
-    console.log(formData)
+    const updatedData = {
+      details:{ 
+      } 
+    };
+
+
+    if (!user.details) {
+      console.log("data added to server")
+      UserInitalizeHandler(formData, token)
+      return
+    }
+
+
+    
+    formData.details.name != user.details.name ? updatedData.details.name = formData.details.name : null
+    const formKeys = await Object.keys(formData.details).map((key) =>  key);
+    for (const key of formKeys) {
+      if (formData.details[key] != user.details[key]) {
+        updatedData.details[key] = formData.details[key];
+      }      
+    }
+
+    await UserDataHandler(updatedData, token,);
 
   }
 
@@ -247,55 +308,31 @@ const Profile = () => {
             loading
           </>)
           : (
-            <main >
+            < >
               <nav className='bg-white drop-shadow-lg w-full h-14 flex items-center justify-around mb-5  '>
                 <Link onClick={LogoutHandler} to={"/auth/login"} className='text-red-500 text-2xl cursor-pointer p-2 hover:text-red-600 bg-white rounded-full'><CiLogout /></Link>
                 <Link to={'/'} className='h-full'><img src="/assets/logo.png" className='h-full  object-contain mx-auto' alt="" /></Link>
               </nav>
+              <div className='bg-primary w-full h-[300px]  absolute top-0 z-[-1] left-0'></div>
+
+
+              <main className='  flex flex-col  gap-2 xl:w-[60%] lg:w-[70%] md:w-[80%] mx-auto  bg-white  mb-20  mt-10  p-5    drop-shadow-xl' >
+                <CoverAndProfilePicture pictureUrl={formData.details.pictureUrl} coverUrl={formData.details.coverUrl} handleImages={handleImages} />
+                <div className='md:h-14 w-full '></div>
 
 
 
-                <section className='  flex flex-col  gap-10 md:w-[80%] mx-auto  bg-white  mb-20   p-5    drop-shadow-xl'  >
-                  <CoverAndProfilePicture formData={formData} handleImages={handleImages} />
+                <ProfileInfoSection formData={formData} handleInputs={handleInputs} />
+                <AboutSection formData={formData} handleInputs={handleInputs} />
+                <SocialLinksSection socialLinks={formData.details.socialLinks} handleSocialLinksInputs={handleSocialLinksInputs} handleAddSocialLink={handleAddSocialLink} handelDeleteSocialLink={handelDeleteSocialLink} />
+                <SkillsSection skills={formData.details.skills} handleSkillsInputs={handleSkillsInputs} handlePercentageChange={handlePercentageChange} handleAddSkill={handleAddSkill} handelDeleteSkill={handelDeleteSkill} />
+                <ProjectsSection projects={formData.details.projects} handleProjectInputs={handleProjectInputs} handleProjectImage={handleProjectImage} handleAddProject={handleAddProject} handelDeleteProject={handelDeleteProject} />
 
-                  <div className='md:h-32 w-full'></div>
-                  <section >
-                    <div className='mx-auto  flex flex-col items-center text-gray-700'>
-                      <h1 className='text-3xl font-semibold capitalize'>{formData?.displayName || "الاسم"}</h1>
-                      <h2 className='text-2xl font-semibold capitalize  mt-2'>{formData?.details?.job || "المهنة"}</h2>
-                    </div>
-
-                    <div className='flex items-center justify-around lg:w-[50%] w-[80%] mx-auto mt-5'>
-                      <Link target='_blank' to={formData?.details?.email} className='p-2 md:px-14 px-5 rounded-md bg-white border border-gray-700 text-gray-700 flex items-center gap-1 hover:bg-gray-700 hover:text-white transition-all  font-semibold'><img src={messageSvg} alt="" /> <h3>مراسلة</h3></Link>
-                      <Link target='_blank' to={formData?.details?.followLink} className='p-2 md:px-14 px-5 rounded-md bg-primary text-white flex items-center gap-1 hover:bg-darkgreen transition-all  font-semibold'><img src={followSvg} alt="" /> <h3>متابعه</h3></Link>
-                    </div>
-                  </section>
-
-                  <ProfileInfoSection formData={formData} handleInputs={handleInputs} />
-
-
-
-                  <AboutSection formData={formData} handleInputs={handleInputs} />
-
-
-                  <SkillsSection formData={formData} handleSkillsInputs={handleSkillsInputs} handlePercentageChange={handlePercentageChange} handleAddSkill={handleAddSkill} />
-
-                  <ProjectsSection formData={formData} handleProjectInputs={handleProjectInputs} handleProjectImage={handleProjectImage} handleAddProject={handleAddProject} />
-
-
-                </section>
-
-
-                <button className='bg-darkgreen text-white p-2 px-5 rounded-lg' onClick={handleSubmit}>حفظ</button>
-                
-                <div className='absolute  w-full h-[250px]'  style={{ backgroundImage: `url(${bg})`, backgroundSize: "cover", backgroundPosition: "center" }}></div>
-
-
+                <button className='bg-darkgreen hover:bg-primary text-white p-2 px-5 rounded-lg w-[50%] mx-auto mt-10  transition-all ' onClick={handleSubmit}>حفظ</button>
               </main>
+            </>
           )
       }
-
-
     </>
   );
 }
@@ -306,70 +343,100 @@ export default Profile;
 
 
 
-const CoverAndProfilePicture = ({ formData, handleImages }) => {
+const CoverAndProfilePicture = ({ pictureUrl, coverUrl, handleImages }) => {
   return (
-    <form className="relative w-full h-[400px] ">
-      <input
-        type="file"
-        name="cover"
-        className="hidden"
-        accept="image/*"
-        id="cover-input"
-        onChange={handleImages}
-      />
-      
-      <label htmlFor="cover-input" className="w-full h-full ">
-      <img
-        src={formData?.details?.coverUrl || "/assets/galaxy.jpg" || "https://picsum.photos/1500"}
-        className="rounded w-full md:h-full h-72 object-cover drop-shadow-md overflow-hidden"
-        alt=""
-      />
-      </label>
+    <form className="relative w-full h-[350px]  ">
 
-
-      <input
-        type="file"
-        name="picture"
-        className="hidden"
-        accept="image/*"
-        id="picture-input"
-        onChange={handleImages}
-      />
-      <label htmlFor="picture-input">
+      <div className='relative w-full  md:h-80 h-72 group '>
         <img
-          src={formData?.details?.pictureUrl || "/assets/profile.jpeg"}
-          alt=""
-          className="rounded-full md:h-60 h-40 md:w-60 w-40 absolute md:-bottom-20 bottom-16 right-1/2 transform translate-x-[50%] border-2 border-primary drop-shadow-md"
+          src={"https://mylinker-server.vercel.app/images/"+ coverUrl || '/assets/galaxy.jpg' || "https://picsum.photos/1500"}
+          className="w-full h-full object-cover drop-shadow-md"
+          alt="Cover"
         />
-      </label>
+        <input
+          type="file"
+          name="cover"
+          className="hidden"
+          accept="image/*"
+          id="cover-input"
+          onChange={handleImages}
+        />
+
+        <label
+          htmlFor="cover-input"
+          className="absolute  md:bottom-[55%] bottom-1/2 right-1/2 transform translate-x-1/2 translate-y-1/2  md:opacity-0  group-hover:opacity-100 transition-all  cursor-pointer"
+        >
+          <MdCamera color='white' size={50} />
+        </label>
+
+      </div>
+
+      <div className='relative w-full  group '>
+        <img
+          src={"https://mylinker-server.vercel.app/images/"+pictureUrl || "/assets/profile.jpeg"}
+          alt="Profile"
+          className="rounded-full lg:h-52 md:h-60 h-40 lg:w-52 md:w-60 w-40 absolute bottom-8 right-1/2 transform translate-x-1/2 translate-y-1/2 border-2 border-primary drop-shadow-md "
+        />
+        <input
+          type="file"
+          name="picture"
+          className="hidden"
+          accept="image/*"
+          id="picture-input"
+          onChange={handleImages}
+        />
+
+        <label htmlFor="picture-input"
+          className="absolute  bottom-0 right-1/2 transform translate-x-1/2  md:opacity-0  group-hover:opacity-100 transition-all  z-50 cursor-pointer"
+        >
+          <MdCamera color='white' size={50} />
+        </label>
+
+      </div>
+
     </form>
+
   );
 };
 
 
 const ProfileInfoSection = ({ formData, handleInputs }) => {
   return (
-    <section >
-      <form className='flex md:flex-row-reverse flex-col flex-wrap  items-center xl:justify-start  justify-center mt-14 lg:gap-x-16 gap-5 w-full'>
+    <section>
 
-        <div className='flex flex-col gap-2 '>
-          <label htmlFor="displayName" className='text-xl text-primary'>الاسم</label>
-          <input onChange={handleInputs} type="text" name="displayName" id="displayName" value={formData?.displayName} className='bg-[#EEEEEE] px-2 p-2 rounded-lg outline-none lg:w-[400px] w-80 capitalize ' />
+      <section >
+        <div className='mx-auto  flex flex-col items-center text-gray-700'>
+          <h1 className='text-3xl font-semibold capitalize inline-flex  items-center '><MdPerson />{formData?.details.name || "الاسم"} </h1>
+
+          <h2 className='text-2xl font-semibold capitalize mt-2 inline-flex items-center gap-2'><BsBriefcaseFill />{formData?.details?.job || "المهنة"} </h2>
         </div>
 
-        <div className='flex flex-col gap-2 '>
+        <div className='flex items-center justify-around lg:w-[60%] w-[95%] mx-auto mt-8'>
+          <Link target='_blank' to={formData?.details?.email} className='p-2 md:px-14 px-5 rounded-md bg-white border border-gray-700 text-gray-700 flex items-center gap-1 hover:bg-gray-700 hover:text-white transition-all  font-semibold'><img src={messageSvg} alt="" /> <h3>مراسلة</h3></Link>
+          <Link target='_blank' to={formData?.details?.followLink} className='p-2 md:px-14 px-5 rounded-md bg-primary text-white flex items-center gap-1 hover:bg-darkgreen transition-all  font-semibold'><img src={followSvg} alt="" /> <h3>متابعه</h3></Link>
+        </div>
+      </section>
+
+      <form className='flex md:flex-row-reverse flex-col flex-wrap p-5  justify-center md:items-center gap-5  w-full mx-auto'>
+
+        <div className='flex flex-col gap-2 md:w-[45%] '>
+          <label htmlFor="name" className='text-xl text-primary'>الاسم</label>
+          <input onChange={handleInputs} type="text" name="name" id="name" value={formData?.details?.name} className='bg-[#EEEEEE] px-2 p-2 rounded-lg outline-none w-full capitalize ' />
+        </div>
+
+        <div className='flex flex-col gap-2 md:w-[45%] '>
           <label htmlFor="job" className='text-xl text-primary'>المهنة</label>
-          <input onChange={handleInputs} type="text" name="details.job" id="job" value={formData?.details?.job} className='bg-[#EEEEEE] px-2  p-2 rounded-lg  outline-none lg:w-[400px] w-80 capitalize ' />
+          <input onChange={handleInputs} type="text" name="job" id="job" value={formData?.details?.job} className='bg-[#EEEEEE] px-2  p-2 rounded-lg  outline-none w-full capitalize ' />
         </div>
 
-        <div className='flex flex-col gap-2 '>
+        <div className='flex flex-col gap-2 md:w-[45%]'>
           <label htmlFor="followLink" className='text-xl text-primary'>لينك المتابعة</label>
-          <input onChange={handleInputs} type="text" name="details.followLink" id="followLink" value={formData?.details?.followLink} className='bg-[#EEEEEE] px-2  p-2 rounded-lg  outline-none lg:w-[400px] w-80 capitalize ' />
+          <input onChange={handleInputs} type="text" name="followLink" id="followLink" value={formData?.details?.followLink} className='bg-[#EEEEEE] px-2  p-2 rounded-lg  outline-none w-full capitalize ' />
         </div>
 
-        <div className='flex flex-col gap-2 '>
+        <div className='flex flex-col gap-2 md:w-[45%]'>
           <label htmlFor="email" className='text-xl text-primary'>لينك المراسلة : <span className='text-base'>الايميل</span></label>
-          <input onChange={handleInputs} type="text" name="details.email" id="email" value={formData?.details?.email} className='bg-[#EEEEEE] px-2  p-2 rounded-lg  outline-none lg:w-[400px] w-80 capitalize ' />
+          <input onChange={handleInputs} type="text" name="email" id="email" value={formData?.details?.email} className='bg-[#EEEEEE] px-2  p-2 rounded-lg  outline-none w-full ' />
         </div>
 
       </form>
@@ -389,7 +456,7 @@ const AboutSection = ({ formData, handleInputs }) => {
         <textarea
           className="bg-[#EEEEEE] p-2 rounded-lg outline-none w-full h-[90%] text-gray-700 placeholder:text-right"
           onChange={handleInputs}
-          name="details.about"
+          name="about"
           id="about"
           value={formData?.details?.about}
           placeholder="عنك"
@@ -403,20 +470,69 @@ const AboutSection = ({ formData, handleInputs }) => {
 };
 
 
-const SkillsSection = ({ formData, handleSkillsInputs, handlePercentageChange, handleAddSkill }) => {
+const SocialLinksSection = ({ socialLinks, handleSocialLinksInputs, handleAddSocialLink, handelDeleteSocialLink }) => {
   return (
-    <section className='w-[80%]  mx-auto  '>
+    <section>
+      <h1 className="text-3xl font-semibold text-primary my-10 mx-auto w-max p-2 px-7 rounded bg-white drop-shadow border-t-2 border-darkgreen">
+        التواصل
+      </h1>
+
+
+
+      <div className='w-[80%] mx-auto gap-4 flex flex-col'>
+
+        {
+          socialLinks?.map((socialLink, index) => (
+            <div key={index} className='bg-white drop-shadow w-full  flex flex-col gap-8 p-2 rounded border-y-2 border-primary'>
+
+              <FiTrash className='absolute right-2 top-2 text-red-400 cursor-pointer text-lg' onClick={() => handelDeleteSocialLink(index)} />
+              <MdLink size={30} className='mx-auto text-darkgreen' />
+              <div className='flex items-center md:w-[60%] mx-auto bg-[#EEEEEE] rounded'>
+
+                <div className=' group relative cursor-pointer '>
+                  <MdInfoOutline className='m-2 text-xl' />
+                  <h1 className='absolute -top-8 left-0 p-1 md:w-72 w-56  bg-primary text-white rounded opacity-0 group-hover:opacity-100 transition-all md:text-sm text-xs '>يفضل ادخال اسم الموقع باللغة الانجليزية</h1>
+
+                </div>
+                <input type="text" name='site' value={socialLink.site} placeholder={"موقع التواصل"} className='bg-[#EEEEEE]  p-2 placeholder:text-right outline-none rounded w-full' onChange={(e) => handleSocialLinksInputs(e, index)} />
+              </div>
+              <input type="text" name='link' value={socialLink.link} placeholder={" لينك"} className='bg-[#EEEEEE] placeholder:text-right p-1 outline-none rounded' onChange={(e) => handleSocialLinksInputs(e, index)} />
+            </div>
+          ))
+        }
+
+
+
+
+
+
+
+        <div className='mx-auto mt-5 w-max flex justify-center  text-primary hover:scale-105 transition-all cursor-pointer' onClick={handleAddSocialLink} >
+          <AiOutlinePlusCircle className='text-4xl' />
+        </div>
+
+      </div>
+    </section>
+  )
+}
+
+
+const SkillsSection = ({ skills, handleSkillsInputs, handlePercentageChange, handleAddSkill, handelDeleteSkill }) => {
+  return (
+    <section className='w-[90%]  mx-auto  '>
 
       <h1 className='text-3xl font-semibold text-primary my-10 mx-auto w-max p-2 px-7 rounded bg-white drop-shadow border-t-2 border-darkgreen'>مهاراتي</h1>
 
       <ul className=' flex flex-col gap-4 gap-y-10 mx-auto'>
-        {formData?.details?.skills?.map((skill, index) => (
-          <li key={index} className='relative w-full md:h-10 h-[100px] flex flex-col md:flex-row-reverse items-center justify-around gap-3'>
+        {skills?.map((skill, index) => (
+          <li key={index} className='relative w-full md:h-10 h-[130px] flex flex-col md:flex-row-reverse items-center justify-around gap-3'>
+            <FiTrash className=' text-red-400 cursor-pointer  w-10 md:h-5 h-14' onClick={() => handelDeleteSkill(index)} />
             <input
               className='text-2xl  font-semibold capitalize text-center p-2 outline-none border rounded text-primary bg-[#EEEEEE] '
               name={index}
               value={skill.name}
               onChange={handleSkillsInputs}
+              placeholder='مهارة'
             />
             <div className='relative bg-primary bg-opacity-25 w-[85%] h-[90%] rounded-l-xl '>
               <input
@@ -448,7 +564,7 @@ const SkillsSection = ({ formData, handleSkillsInputs, handlePercentageChange, h
 }
 
 
-const ProjectsSection = ({ formData, handleProjectImage, handleProjectInputs,handleAddProject }) => {
+const ProjectsSection = ({ projects, handleProjectImage, handleProjectInputs, handleAddProject, handelDeleteProject }) => {
   const handleImageChange = (e, index) => {
     e.preventDefault();
     const file = e.target.files[0];
@@ -462,49 +578,55 @@ const ProjectsSection = ({ formData, handleProjectImage, handleProjectInputs,han
     }
   };
 
-
-
   return (
     <section className='w-[80%]  mx-auto  '>
       <h1 className='text-3xl font-semibold text-primary my-10 mx-auto w-max p-2 px-7 rounded bg-white drop-shadow border-t-2 border-darkgreen'>
         مشاريعي
       </h1>
 
-      {formData?.details?.projects?.map((project, index) => (
-        <div key={index} className="p-4 bg-white drop-shadow-xl rounded-lg my-5 lg:w-[60%] mx-auto">
-          <div className="relative">
+      {projects?.map((project, index) => (
+        <div key={index} className="p-1 bg-white drop-shadow-xl rounded-lg my-5 lg:w-[80%] mx-auto">
+
+          <FiTrash className='absolute right-4 top-4 text-red-400 cursor-pointer text-3xl z-10 bg-white p-1  rounded-full' onClick={() => handelDeleteProject(index)} />
+
+          <div className="relative bg-gradient-to-r from-blue-300 to-green-300 p-1 rounded-lg  group">
+
+            <img
+              src={project.imgUrl}
+
+              className="w-full md:h-80 h-40 object-cover rounded-lg"
+            />
+
             <input
               type="file"
               accept="image/*"
-              id={`file-input-${index}`} 
+              id={`file-input-${index}`}
               name={index}
-              onChange={(e) => handleImageChange(e, index)} 
+              onChange={(e) => handleImageChange(e, index)}
               className="hidden"
             />
-            <label htmlFor={`file-input-${index}`}>
-              <div className="bg-gradient-to-r from-blue-300 to-green-300 p-1 rounded-lg cursor-pointer">
-                <img
-                  src={project.imgUrl || 'placeholder-image-url.jpg'}
-                  alt="Selected"
-                  className="w-full md:h-80 h-60 object-cover rounded-lg"
-                />
-              </div>
+
+            <label htmlFor={`file-input-${index}`}
+              className="absolute   bottom-1/2 right-1/2 transform translate-x-1/2 translate-y-1/2  md:opacity-0  group-hover:opacity-100 transition-all  cursor-pointer">
+
+              <MdCamera color='white' size={50} />
             </label>
+
           </div>
 
-          <div className='w-[65%] mx-auto'>
+          <div className='md:w-[65%] w-[85%] mx-auto'>
             <input
               type="text"
-              value={project.title}
-              name={'title'} 
+              value={project.name}
+              name={'name'}
               className="bg-[#EEEEEE] text-gray-800 px-2 py-2 rounded-lg outline-none w-full my-4 placeholder:text-right"
               placeholder="اسم المشروع"
-              onChange={ (e) => handleProjectInputs(e, index)}
+              onChange={(e) => handleProjectInputs(e, index)}
             />
             <input
               type="text"
               value={project.link}
-              name={'link'} 
+              name={'link'}
               className="bg-[#EEEEEE] text-gray-800 px-2 py-2 rounded-lg outline-none w-full my-4 placeholder:text-right"
               placeholder="رابط المشروع"
               onChange={(e) => handleProjectInputs(e, index)}
@@ -512,10 +634,7 @@ const ProjectsSection = ({ formData, handleProjectImage, handleProjectInputs,han
           </div>
         </div>
       ))}
-
-
-
-<div className='mx-auto mt-5 w-max flex justify-center  text-primary hover:scale-105 transition-all cursor-pointer' onClick={handleAddProject}>
+      <div className='mx-auto mt-5 w-max flex justify-center  text-primary hover:scale-105 transition-all cursor-pointer' onClick={handleAddProject}>
         <AiOutlinePlusCircle className='text-4xl' />
       </div>
     </section>

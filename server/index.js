@@ -7,8 +7,6 @@ const passport = require('passport');
 const UserModel = require('./models/userModel');
 const cors = require('cors');
 
-
-
 const app = express();
 app.use(express.static('public'))
 app.use(cors());
@@ -43,6 +41,8 @@ app.use("/users", require('./routes/userRoutes'));
 // Profile routes
 app.use("/profile", require('./routes/profileRoutes'));
 
+// image routes
+app.use("/images", require('./routes/imageRoutes'));
 
 
 
