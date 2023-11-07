@@ -4,12 +4,10 @@ const connectDB = require('./config/connectDb');
 const { default: mongoose } = require('mongoose');
 require('dotenv').config();
 const passport = require('passport');
-const UserModel = require('./models/userModel');
 const cors = require('cors');
 
 const app = express();
 app.use(express.static('public'))
-app.use(cors());
 
 // Configure Passport to use sessions
 app.use(require('express-session')({ secret: process.env.SECRET, resave: true, saveUninitialized: true }));
@@ -22,7 +20,9 @@ require("./config/passport")
 
 
 // Middleware
-app.use(helmet());
+app.use(cors());
+
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(express.json()); // Parse JSON request bodies
 app.use(express.urlencoded({ extended: false })); // Parse URL-encoded request bodies
 

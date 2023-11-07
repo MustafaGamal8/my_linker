@@ -17,7 +17,7 @@ const LoginHandler = async (email, password) => {
     })
     const {token,user} = response.data
     toast.success(response.data.message)
-    cookies.set('token', token, { path: '/' }); 
+          cookies.set('token', token, { path: '/'  ,maxAge: 24 * 60 * 60});
     localStorage.setItem('user', JSON.stringify(user))
     window.location = "/profile"
   } catch (error) {

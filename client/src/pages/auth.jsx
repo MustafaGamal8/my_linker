@@ -22,7 +22,7 @@ const Auth = () => {
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
         if (token) {
-          cookies.set('token', token, { path: '/' });
+          cookies.set('token', token, { path: '/'  ,maxAge: 24 * 60 * 60});
           navigate('/profile');
         }
       }

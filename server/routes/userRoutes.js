@@ -11,7 +11,16 @@ router.get('/', userController.getAllUsers)
 
 router.post("/get",userController.getUser)
 router.post("/initalize",userController.handelInitalizeUser)
-router.put("/update",upload.fields([{ name: 'pictureFile' }, { name: 'coverFile' }, { name: 'projectImageFiles' }]),userController.handleUserDataUpdate)
+
+
+const imagesFields =upload.fields([
+  { name: 'pictureFile', maxCount: 1 },
+  { name: 'coverFile', maxCount: 1 },
+  { name: 'projectImagesFile', maxCount: 10 } // Assuming max 10 files for example
+])
+
+
+router.put("/update",imagesFields,userController.handleUserDataUpdate)
 
 
 

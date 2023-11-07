@@ -20,18 +20,17 @@ const UserDataHandler = async (data, token) => {
   }
 
   // Process project images
-  data.details.projects?.forEach((project, index) => {
-    // If the project image is a file, append it to formData
-    if (project.imgFile instanceof File) {
-      formData.append(`projectImageFiles[${index}]`, project.imgFile);
-    }
-    // Otherwise, assume it's a Base64 string and handle it in the backend
-    else {
-      formData.append(`projectImages[${index}][imgUrl]`, project.imgUrl);
-    }
-    formData.append(`projectImages[${index}][name]`, project.name);
-    formData.append(`projectImages[${index}][link]`, project.link);
-  });
+  if (data.details.projects && data.details.projects.length > 0) {
+    data.details.projects.forEach((project, index) => {
+      if (project.imgFile) {
+        formData.append(`projectImagesFile`, project.imgFile);
+        formData.append(`projectIndexs`,  index); // Assuming project.id is your identifier
+      }
+    });
+  }
+
+  
+
 
   // Append other details as JSON
   formData.append('details', JSON.stringify(data.details));

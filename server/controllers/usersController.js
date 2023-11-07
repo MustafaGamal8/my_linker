@@ -79,7 +79,6 @@ const handleUserDataUpdate = asyncHandler(async (req, res) => {
 
     // Function to save image data and return the image document ID
     const saveImageAndGetId = async (file) => {
-      console.log(file);
       const image = new ImageModel({
         data: file.buffer,
         contentType: file.mimetype
@@ -99,22 +98,21 @@ const handleUserDataUpdate = asyncHandler(async (req, res) => {
       const coverId = await saveImageAndGetId(req.files['coverFile'][0]);
       user.details.coverUrl = coverId; // Store the image document ID as a reference
     }
+    
 
     // Save project images and update user model with the image IDs
-    if (req.files['projectImageFiles']) {
-      for (const [index, file] of req.files['projectImageFiles'].entries()) {
-        if (user.details.projects && user.details.projects[index]) {
-          const projectId = await saveImageAndGetId(file);
-          user.details.projects[index].imgUrl = projectId; // Update the project with the image ID
-        }
-      }
+    if (req.files['projectImagesFile']) {
+      req.files['projectImagesFile'].forEach(async (file, index) => {
+        const projectIndex = req.body.projectIndexs[index];
+        const imageId = await saveImageAndGetId(file);
+        user.details.projects[projectIndex].imgUrl = imageId;
+      });
     }
-
     
 
     await user.save();
     console.log(user.details);
-    res.status(200).json({ message: "User data updated successfully", userDetails: user.details });
+    res.status(200).json({ message: "تم تحديث البيانات بنجاح", userDetails: user.details });
   
 });
 

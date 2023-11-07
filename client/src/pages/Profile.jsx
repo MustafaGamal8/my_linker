@@ -373,7 +373,7 @@ const CoverAndProfilePicture = ({ pictureUrl, coverUrl, handleImages }) => {
 
       <div className='relative w-full  group '>
         <img
-          src={"https://mylinker-server.vercel.app/images/"+pictureUrl || "/assets/profile.jpeg"}
+          src={"https://mylinker-server.vercel.app/images/" + pictureUrl ||  "/assets/profile.jpeg"}
           alt="Profile"
           className="rounded-full lg:h-52 md:h-60 h-40 lg:w-52 md:w-60 w-40 absolute bottom-8 right-1/2 transform translate-x-1/2 translate-y-1/2 border-2 border-primary drop-shadow-md "
         />
