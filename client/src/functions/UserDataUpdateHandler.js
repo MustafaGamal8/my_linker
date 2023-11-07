@@ -43,7 +43,7 @@ const UserDataHandler = async (data, token) => {
       },
     });
     toast.success(response.data.message);
-    UserFetchHandler();
+    UserFetchHandler(token);
   } catch (error) {
     console.error(error.message);
     toast.error("Failed to update user data.");

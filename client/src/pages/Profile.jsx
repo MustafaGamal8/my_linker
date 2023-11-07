@@ -19,10 +19,10 @@ const Profile = () => {
   const [formData, setFormData] = useState({
     details: {
       name: "",
-      pictureUrl: "",
-      coverUrl: "",
-      pictureFile: null,
-      coverFile: null,
+      pictureUrl: '',
+      coverUrl: '',
+      pictureFile: undefined,
+      coverFile: undefined,
       email: "",
       job: "",
       followLink: "",
@@ -68,12 +68,17 @@ const Profile = () => {
       }
 
       let newData = { ...formData }
-      newData.details.name = user.displayName      
+      newData.details.name = user.displayName
+
       await Object.keys(newData.details).map((key) => {
         if (user.details && user.details[key]) {
           newData.details[key] = user.details[key]
         }
       })
+      newData.details.pictureUrl = user.details.pictureUrl ? "https://mylinker-server.vercel.app/images/" + user.details.pictureUrl : null
+      newData.details.coverUrl = user.details.coverUrl ? "https://mylinker-server.vercel.app/images/" + user.details.coverUrl : null
+
+
       setFormData(newData)
 
 
@@ -273,8 +278,8 @@ const Profile = () => {
 
   const handleSubmit = async () => {
     const updatedData = {
-      details:{ 
-      } 
+      details: {
+      }
     };
 
 
@@ -285,14 +290,23 @@ const Profile = () => {
     }
 
 
-    
+
     formData.details.name != user.details.name ? updatedData.details.name = formData.details.name : null
-    const formKeys = await Object.keys(formData.details).map((key) =>  key);
+    const excludedKeys = ['pictureUrl', 'coverUrl']; 
+    const formKeys = Object.keys(formData.details);
     for (const key of formKeys) {
-      if (formData.details[key] != user.details[key]) {
+      if (!excludedKeys.includes(key) && formData.details[key] !== user.details[key]) {
         updatedData.details[key] = formData.details[key];
-      }      
+      }
     }
+
+    if (updatedData.details.projects) {
+      for (const project of updatedData.details.projects) {
+        delete project.imgUrl;
+        }
+    }
+      
+
 
     await UserDataHandler(updatedData, token,);
 
@@ -349,7 +363,7 @@ const CoverAndProfilePicture = ({ pictureUrl, coverUrl, handleImages }) => {
 
       <div className='relative w-full  md:h-80 h-72 group '>
         <img
-          src={"https://mylinker-server.vercel.app/images/"+ coverUrl || '/assets/galaxy.jpg' || "https://picsum.photos/1500"}
+          src={coverUrl || '/assets/galaxy.jpg'}
           className="w-full h-full object-cover drop-shadow-md"
           alt="Cover"
         />
@@ -373,7 +387,7 @@ const CoverAndProfilePicture = ({ pictureUrl, coverUrl, handleImages }) => {
 
       <div className='relative w-full  group '>
         <img
-          src={"https://mylinker-server.vercel.app/images/" + pictureUrl ||  "/assets/profile.jpeg"}
+          src={pictureUrl || "/assets/profile.jpeg"}
           alt="Profile"
           className="rounded-full lg:h-52 md:h-60 h-40 lg:w-52 md:w-60 w-40 absolute bottom-8 right-1/2 transform translate-x-1/2 translate-y-1/2 border-2 border-primary drop-shadow-md "
         />

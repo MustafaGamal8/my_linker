@@ -90,7 +90,7 @@ const handleUserDataUpdate = asyncHandler(async (req, res) => {
     // Save profile picture
     if (req.files['pictureFile']) {
       const pictureId = await saveImageAndGetId(req.files['pictureFile'][0]);
-      user.details.pictureUrl = pictureId; // Store the image document ID as a reference
+      user.details.pictureUrl = pictureId; 
     }
 
     // Save cover image
