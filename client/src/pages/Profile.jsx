@@ -290,14 +290,11 @@ const Profile = () => {
     }
 
 
-
     formData.details.name != user.details.name ? updatedData.details.name = formData.details.name : null
     const excludedKeys = ['pictureUrl', 'coverUrl']; 
     const formKeys = Object.keys(formData.details);
     for (const key of formKeys) {
-      if (!excludedKeys.includes(key) && formData.details[key] !== user.details[key]) {
         updatedData.details[key] = formData.details[key];
-      }
     }
 
     if (updatedData.details.projects) {
@@ -483,7 +480,6 @@ const AboutSection = ({ formData, handleInputs }) => {
   );
 };
 
-
 const SocialLinksSection = ({ socialLinks, handleSocialLinksInputs, handleAddSocialLink, handelDeleteSocialLink }) => {
   return (
     <section>
@@ -530,7 +526,6 @@ const SocialLinksSection = ({ socialLinks, handleSocialLinksInputs, handleAddSoc
   )
 }
 
-
 const SkillsSection = ({ skills, handleSkillsInputs, handlePercentageChange, handleAddSkill, handelDeleteSkill }) => {
   return (
     <section className='w-[90%]  mx-auto  '>
@@ -576,7 +571,6 @@ const SkillsSection = ({ skills, handleSkillsInputs, handlePercentageChange, han
     </section>
   )
 }
-
 
 const ProjectsSection = ({ projects, handleProjectImage, handleProjectInputs, handleAddProject, handelDeleteProject }) => {
   const handleImageChange = (e, index) => {

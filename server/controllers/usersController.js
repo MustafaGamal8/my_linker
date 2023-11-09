@@ -73,9 +73,17 @@ const handleUserDataUpdate = asyncHandler(async (req, res) => {
 
     // Parse and update other details if provided
     if (req.body.details) {
-      const detailsUpdates = JSON.parse(req.body.details);
-      Object.assign(user.details, detailsUpdates);
+      const detailsUpdates = req.body.details;
+      const formKeys = Object.keys(detailsUpdates);
+      const excludedKeys = ['pictureUrl', 'coverUrl'];
+
+      for (const key of formKeys) {
+        if (!excludedKeys.includes(key)) {
+          user.details[key] = detailsUpdates[key];
+        }
+      }
     }
+    
 
     // Function to save image data and return the image document ID
     const saveImageAndGetId = async (file) => {
@@ -91,12 +99,18 @@ const handleUserDataUpdate = asyncHandler(async (req, res) => {
     if (req.files['pictureFile']) {
       const pictureId = await saveImageAndGetId(req.files['pictureFile'][0]);
       user.details.pictureUrl = pictureId; 
+      if (detailsUpdates.pictureUrl) {
+        await ImageModel.findByIdAndDelete(detailsUpdates.pictureUrl);
+      }
     }
 
     // Save cover image
     if (req.files['coverFile']) {
       const coverId = await saveImageAndGetId(req.files['coverFile'][0]);
-      user.details.coverUrl = coverId; // Store the image document ID as a reference
+      user.details.coverUrl = coverId; 
+      if (detailsUpdates.coverUrl) {
+        await ImageModel.findByIdAndDelete(detailsUpdates.coverUrl);
+      }
     }
     
 
@@ -106,12 +120,13 @@ const handleUserDataUpdate = asyncHandler(async (req, res) => {
         const projectIndex = req.body.projectIndexs[index];
         const imageId = await saveImageAndGetId(file);
         user.details.projects[projectIndex].imgUrl = imageId;
+        if (user.details.projects[projectIndex].imgUrl) {
+          await ImageModel.findByIdAndDelete(user.details.projects[projectIndex].imgUrl);          
+        }
       });
     }
-    
 
     await user.save();
-    console.log(user.details);
     res.status(200).json({ message: "تم تحديث البيانات بنجاح", userDetails: user.details });
   
 });
