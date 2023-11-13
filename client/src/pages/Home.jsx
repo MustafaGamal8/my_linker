@@ -5,7 +5,7 @@ import { HiArrowLeft } from 'react-icons/hi';
 import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa';
 
 import CallIcon from '../assets/icons/Call.svg';
-import WomenSVG from '../assets/women.svg';
+import WomenSVG from '../assets/women.webp';
 import Man from '../assets/man.svg';
 import Share from '../assets/icons/Share.svg';
 import World from '../assets/icons/World.svg';
@@ -16,19 +16,28 @@ import SmailyFace from '../assets/icons/SmailyFace.svg';
 
 import NavBar from '../components/NavBar';
 
+
 const Home = () => {
+
+
+  const templateData = [
+    { img: 'https://mustafagamal51112.github.io/mustafagamal51112/db/khair.png', title: 'موقع خير' },
+    { img: 'https://mustafagamal51112.github.io/mustafagamal51112/db/we-school.png', title: 'موقع وي' },
+    { img: 'https://mustafagamal51112.github.io/mustafagamal51112/db/ktaby.png', title: 'موقع كتابي' },
+    
+  ];
 
 
   return (
     <main className='relative'>
 
-      
+
 
       <header id='header' className='bg-primary '>
-        {/* <NavBar /> */}
+        <NavBar />
 
         <section className='flex md:flex-row flex-col justify-around items-center mt-16  p-2 ' >
-          <img className='drop-shadow-xl' src={WomenSVG} alt='' />
+          <img className='drop-shadow-xl lg:w-[30%] md:w-[40%] w-[60%] h-full' src={WomenSVG} alt='' />
           <div className='flex flex-col gap-y-4 items-end  h-full md:w-[50%]'>
             <h1 className='text-white font-semibold text-5xl text-right w-full' >
               جرب الان اكثر من 10 قالب <span className='text-purple70 font-bold'>جاهز للمشاركة</span>
@@ -43,25 +52,17 @@ const Home = () => {
       </header>
 
       <section className='my-24 bg-white w-[80%] md:h-24 m-auto rounded-md flex md:flex-row-reverse flex-col justify-center whitespace-nowrap lg:text-base text-sm drop-shadow-xl '>
-        <div className='advantage_item'>
-          <img className='h-7 w-7' src={Share} alt='' />
-          <h1>شارك اعمالك بسهولة</h1>
-        </div>
-
-        <div className='advantage_item'>
-          <img className='h-7 w-7' src={World} alt='' />
-          <h1>تجربة فريدة وجديدة</h1>
-        </div>
-
-        <div className='advantage_item'>
-          <img className='h-7 w-7' src={Daily} alt='' />
-          <h1>إضافات يوميه</h1>
-        </div>
-
-        <div className='advantage_item'>
-          <img className='h-7 w-7' src={Key} alt='' />
-          <h1>خصوصية فائقة</h1>
-        </div>
+        {[
+          { img: Share, text: 'شارك اعمالك بسهولة' },
+          { img: World, text: 'تجربة فريدة وجديدة' },
+          { img: Daily, text: 'إضافات يوميه' },
+          { img: Key, text: 'خصوصية فائقة' },
+        ].map((item, index) => (
+          <div key={index} className='advantage_item'>
+            <img className='h-7 w-7' src={item.img} alt='' />
+            <h1>{item.text}</h1>
+          </div>
+        ))}
       </section>
 
       <section id='templates' className='relative text-center mb-24'>
@@ -72,17 +73,15 @@ const Home = () => {
           اختر القالب الذي يعكس ذوقك الفريد ويمثل رؤيتك بأبهى شكل, اجعل التصميم يعكس هوية مشروعك بكل أناقة
           واحترافية.
         </p>
-        <img className='lg:ml-[200px] mb-2' src={Arrow} alt='' />
+        <img className='lg:ml-[200px] mb-2 w-40 h-40' src={Arrow} alt='' />
 
         <div className='text-white text-center flex items-center w-[90%] justify-center m-auto gap-4 gap-y-7 flex-wrap'>
-          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/khair.png'} title='موقع خير' />
-          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/ktaby.png'} title='موقع كتابي' />
-          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/zaman.png'} title='موقع زمن' />
-          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/we-school.png'} title='موقع وي' />
-          
+          {templateData.map((template, index) => (
+            <Templates key={index} img={template.img} title={template.title} />
+          ))}
         </div>
 
-        <Link to={'/templates'}  className='flex flex-row-reverse items-center justify-center gap-2  text-xl mt-10 '  >
+        <Link to={'/templates'} className='flex flex-row-reverse items-center justify-center gap-2  text-xl mt-10 '  >
           <h1>شاهد المزيد </h1> <HiArrowLeft />
         </Link>
       </section>
@@ -127,15 +126,10 @@ export default Home;
 
 
 
-
-
-
-
-
 function Templates({ img, title }) {
   return (
     <Link
-    to={"/templates"}
+      to={"/templates"}
       className="w-[400px] h-[250px] rounded-lg overflow-hidden relative hover:-translate-y-4 transition-all cursor-pointer group drop-shadow-lg"
     >
       <img
@@ -154,16 +148,14 @@ function Templates({ img, title }) {
   );
 }
 
-
-
 function Recommendation({ img, p, name }) {
   return (
     <div className=' relative  w-[430px] h-[230px]   bg-primary hover:bg-purple70 hover:-translate-y-5 p-2 rounded transition-all text-white '>
-      <img className='m-auto mt-5 red' src={SmailyFace} alt="" />
+      <img className='m-auto mt-5 red w-6 h-6' src={SmailyFace} alt="" />
       <p className='text-center mt-5 '>{p}</p>
 
       <div className='absolute -bottom-7  left-1/2 transform -translate-x-1/2  rounded-full w-20 h-20 bg-white'>
-        <img src={img} alt="" />
+        <img className='w-20 h-20' src={img} alt="" />
         <h1 className='text-black  text-center'>{name}</h1>
       </div>
 
@@ -171,8 +163,6 @@ function Recommendation({ img, p, name }) {
   )
 
 }
-
-
 
 function Footer() {
   return (
@@ -182,7 +172,7 @@ function Footer() {
       <section className='flex flex-col gap-4 text-white text-center'>
         <h1 className='font-semibold text-3xl'>تواصل معنا</h1>
         <Link to="tel:+201276071829" className='flex items-center justify-end gap-4'>
-          <img src={CallIcon} alt="" />
+          <img className='w-6 h-6' src={CallIcon} alt="" />
           <h2>+201276071829</h2>
         </Link>
         <Link to="mailto:mustafagamal51112@gmail.com">Mustafagamal51112@gmail.com</Link>

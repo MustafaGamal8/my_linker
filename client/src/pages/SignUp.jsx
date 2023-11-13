@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import bg2 from "../assets/bg2.svg"
 import { Link } from "react-router-dom";
-import loginSvg from '../assets/login.svg'
 import SignUpHandler from '../functions/SignUpHandler';
 
 const SignUp = () => {
