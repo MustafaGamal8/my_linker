@@ -1,9 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Login from "./Login";
-import {useCookies} from "react-cookie"
-
-import MouseEffect from '../components/mouseEffect';
 import SignUp from "./SignUp";
 import Cookies from 'universal-cookie';
 
@@ -32,8 +29,7 @@ const Auth = () => {
   }, [mood]);
 
   return (
-    <main className="cursor-none">
-    <MouseEffect />
+    <main>
       {
         mood === "login" ? <Login /> : null
       }

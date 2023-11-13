@@ -1,28 +1,22 @@
 import axios from "axios";
 import { toast } from 'react-toastify';
+import UserFetchHandler from "./UserFetchHandler";
 
 // const ServerUrl = "http://localhost:3000";
 
 const ServerUrl = "https://mylinker-server.vercel.app";
 
 
-const UserInitalizeHandler = async (data,token) => {
+const UserInitalizeHandler = async (token) => {
   try {
-    const response =  await axios.post(ServerUrl + "/users/initalize",
-    {
-      displayName: data.displayName,
-      details: data.details
-    }
-    ,{
+     await axios.get(ServerUrl + "/users/initalize",{
       headers: {
         "x-auth-token": token
       }
     })
-
-    toast.success(response.data.message)
+    await UserFetchHandler(token)
   } catch (error) {
-    console.log(error.message)
-    
+    toast.error(error.message)    
   }
 }
 

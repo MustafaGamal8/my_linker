@@ -21,9 +21,8 @@ require("./config/passport")
 
 // Middleware
 app.use(cors());
-
+app.use(express.json()); 
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-app.use(express.json()); // Parse JSON request bodies
 app.use(express.urlencoded({ extended: false })); // Parse URL-encoded request bodies
 
 // Routes

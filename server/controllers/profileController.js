@@ -1,35 +1,36 @@
+const { default: mongoose } = require("mongoose");
 const asyncHandler = require("../middlewares/asyncHandler");
 const UserModel = require("../models/userModel");
 
 
-// const ServerUrl = "https://mylinker-server.vercel.app";
-const ServerUrl = "http://localhost:3000";
-
 
 
 const getProfile = asyncHandler(async (req, res) => {
-  const { email, _id } = req.query;
+  const userId = req.params.userId;
+  
 
   let user = null;
 
-  if (email) {
+  if (!userId) {
+    return res.status(400).json({ error: "المستخدم غير موجود" });
+  }
+
+  // Check if userId is a valid MongoDB ObjectId
+  if (mongoose.Types.ObjectId.isValid(userId)) {
+    user = await UserModel.findById(userId);
+  } else {
+    const email = `${userId}@gmail.com`;
     user = await UserModel.findOne({ email });
   }
-  if (_id) {
-    user = await UserModel.findById(_id);
-  }
 
-  if (!user) {
-    return res.status(400).json({ error: "User not found" });
-  }
 
-  if (user.details) {
+  if (user) {
     return res.status(200).json(user.details);
-  }else{
-    return res.status(400).json({ error: "User details not found"})
+  } else {
+    return res.status(400).json({ error: "المستخدم غير موجود" });
   }
-
 });
+
 
 
 module.exports = { getProfile }

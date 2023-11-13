@@ -35,7 +35,7 @@ aside {
 
 
 .Nav_Item{
-  @apply flex flex-row-reverse items-center gap-1  text-white cursor-pointer h-full  relative after:absolute after:bottom-0 after:left-0  after:w-0 hover:after:w-full after:h-[6px] after:bg-secondary after:transition-all after:rounded
+  @apply flex flex-row-reverse items-center gap-1  text-white cursor-pointer h-full text-center relative after:absolute after:bottom-0 after:left-0  after:w-0 hover:after:w-full after:h-[6px] after:bg-secondary after:transition-all after:rounded
 }
 
 .Side_Item{

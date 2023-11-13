@@ -9,7 +9,7 @@ const SocialSlider = ({slides ,color}) => {
   const settings = {
     dots: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: slides.length > 3 ? 3 : slides.length,
     slidesToScroll: 3,
     initialSlide:0,
     autoplay: true,

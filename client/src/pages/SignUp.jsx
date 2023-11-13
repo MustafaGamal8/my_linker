@@ -13,7 +13,7 @@ const SignUp = () => {
   return (
     <div className="flex flex-row-reverse justify-around items-center  h-[100vh]" style={{ backgroundImage: `url(${bg2})`, backgroundSize: "cover", backgroundPosition: "center" }}>
 
-      <section className="bg-white drop-shadow-xl p-2 md:p-10 rounded lg:w-[35%] md:w-[50%] w-[90%] ">
+      <section className="bg-white drop-shadow-xl p-2 md:p-10 rounded xl:w-[35%] md:w-[50%] w-[85%] ">
         <Link to={"/"}><img src="/assets/logo.png" className='h-36 m-auto absolute  top-0 left-1/2 transform translate-x-[-50%] translate-y-[-50%]  ' alt="" /></Link>
         <h1 className="text-3xl font-semibold text-center mt-12 md:mt-7">إنشاء حساب</h1>
 

@@ -10,6 +10,7 @@ import TemplateThree from "./templates/template_three";
 import Home from "./pages/Home";
 import toastConfig from "./config/toastConfig";
 import NotFound from "./pages/NotFound";
+import Templates from "./pages/Templates";
 
 function App() {
   
@@ -23,9 +24,10 @@ function App() {
       <Route path="/"  element={<Home />} />
       <Route path="/auth/:mood"  element={<Auth />} />
       <Route path="/profile"  element={<Profile />} />
-      {/* <Route path="/temp/one" element={<TemplateOne />} />
-      <Route path="/temp/two" element={<TemplateTwo />} />
-      <Route path="/temp/three" element={<TemplateThree />} /> */}
+      <Route path="/templates"  element={<Templates />} />
+      <Route path="/temp/one/:userId" element={<TemplateOne />} />
+      <Route path="/temp/two/:userId" element={<TemplateTwo />} />
+      <Route path="/temp/three/:userId" element={<TemplateThree />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
     

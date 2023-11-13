@@ -21,9 +21,10 @@ const CustomSlider = ({slides,color}) => {
     <Slider {...settings}>
 
       {slides.map((slide, index) => (
-        <Link to={slide.link} target='_blank' key={index} className='bg-white drop-shadow-md  p-5 rounded '>
-        <h1 className='text-center text-2xl drop-shadow-lg  uppercase text-white mb-2  rounded-t' style={{background:color}}>{slide.title}</h1>
-        <img src={slide.img} alt="" />
+        <Link to={slide.link} target='_blank' key={index} className='bg-white drop-shadow-xl  p-5 rounded ' >
+        <h1 className='text-center text-2xl drop-shadow-lg  uppercase text-white mb-2  rounded-t' style={{background:color}}>{slide.name}</h1>
+        <img src={(slide.imgId? "https://mylinker-server.vercel.app/images/"+slide.imgId: null)} alt="" />
+        <h1 className='text-center text-2xl drop-shadow-lg  uppercase text-white mb-2  rounded-b h-1'  style={{background:color}}></h1>
 
         </Link>
       ))}

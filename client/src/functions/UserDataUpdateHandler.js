@@ -8,6 +8,7 @@ const ServerUrl = "https://mylinker-server.vercel.app";
 
 
 const UserDataHandler = async (data, token) => {
+  
   const loadingToast = toast.loading("جاري تحديث البيانات...");
   const formData = new FormData();
 
@@ -24,14 +25,14 @@ const UserDataHandler = async (data, token) => {
     data.details.projects.forEach((project, index) => {
       if (project.imgFile) {
         formData.append(`projectImagesFile`, project.imgFile);
-        formData.append(`projectIndexs`,  index); // Assuming project.id is your identifier
+        formData.append(`projectIndexs`,  index);
       }
     });
   }
 
   
-
-
+  
+  
   // Append other details as JSON
   formData.append('details', JSON.stringify(data.details));
 
@@ -45,8 +46,7 @@ const UserDataHandler = async (data, token) => {
     toast.success(response.data.message);
     UserFetchHandler(token);
   } catch (error) {
-    console.error(error.message);
-    toast.error("Failed to update user data.");
+    toast.error(error.response.data.error);
   }
   toast.dismiss(loadingToast);
 };

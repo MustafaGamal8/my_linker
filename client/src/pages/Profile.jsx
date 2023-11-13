@@ -13,16 +13,16 @@ import { MdPerson, MdCamera, MdLink, MdInfoOutline } from 'react-icons/md'
 import { BsBriefcaseFill } from 'react-icons/bs'
 import { FiTrash } from 'react-icons/fi'
 import UserDataHandler from '../functions/UserDataUpdateHandler';
-import UserInitalizeHandler from '../functions/UserInitalizeHandler';
+import UserInitalizeHandler from '../functions/UserInitalizeHandler.js';
+import { toast } from 'react-toastify';
+import {CgTemplate} from 'react-icons/cg'
 
 const Profile = () => {
   const [formData, setFormData] = useState({
     details: {
       name: "",
-      pictureUrl: '',
-      coverUrl: '',
-      pictureFile: undefined,
-      coverFile: undefined,
+      pictureId: '',
+      coverId: '',
       email: "",
       job: "",
       followLink: "",
@@ -44,7 +44,7 @@ const Profile = () => {
         {
           name: "",
           link: "",
-          imgUrl: "",
+          imgId:"",
         }
       ],
     },
@@ -66,21 +66,20 @@ const Profile = () => {
         await UserFetchHandler(token);
         setUser(JSON.parse(localStorage.getItem('user')));
       }
+      if (!user.details) {
+        await UserInitalizeHandler(token)
+        setUser(JSON.parse(localStorage.getItem('user')));
+     }
 
       let newData = { ...formData }
-      newData.details.name = user.displayName
 
       await Object.keys(newData.details).map((key) => {
         if (user.details && user.details[key]) {
           newData.details[key] = user.details[key]
         }
       })
-      newData.details.pictureUrl = user.details.pictureUrl ? "https://mylinker-server.vercel.app/images/" + user.details.pictureUrl : null
-      newData.details.coverUrl = user.details.coverUrl ? "https://mylinker-server.vercel.app/images/" + user.details.coverUrl : null
-
-
+      
       setFormData(newData)
-
 
     };
 
@@ -282,30 +281,20 @@ const Profile = () => {
       }
     };
 
+  
 
-    if (!user.details) {
-      console.log("data added to server")
-      UserInitalizeHandler(formData, token)
-      return
-    }
-
-
-    formData.details.name != user.details.name ? updatedData.details.name = formData.details.name : null
-    const excludedKeys = ['pictureUrl', 'coverUrl']; 
     const formKeys = Object.keys(formData.details);
+    const exludedKeys = ['pictureUrl', 'coverUrl'];
     for (const key of formKeys) {
-        updatedData.details[key] = formData.details[key];
-    }
-
-    if (updatedData.details.projects) {
-      for (const project of updatedData.details.projects) {
-        delete project.imgUrl;
+      if (!exludedKeys.includes(key)) {
+        if (formData.details[key] != "") {
+          updatedData.details[key] = formData.details[key];
+          
         }
-    }
-      
-
-
-    await UserDataHandler(updatedData, token,);
+      }
+    }     
+    
+    await UserDataHandler(updatedData, token);
 
   }
 
@@ -321,14 +310,15 @@ const Profile = () => {
           : (
             < >
               <nav className='bg-white drop-shadow-lg w-full h-14 flex items-center justify-around mb-5  '>
-                <Link onClick={LogoutHandler} to={"/auth/login"} className='text-red-500 text-2xl cursor-pointer p-2 hover:text-red-600 bg-white rounded-full'><CiLogout /></Link>
+                <Link onClick={LogoutHandler} to={"/auth/login"} className='flex items-center gap-2 hover:text-red-400 transition-all '><CiLogout />تسجيل الخروج</Link>
                 <Link to={'/'} className='h-full'><img src="/assets/logo.png" className='h-full  object-contain mx-auto' alt="" /></Link>
+                <Link to={'/templates'} className='flex items-center gap-2 hover:text-red-400 transition-all '><CgTemplate />القوالب</Link>
               </nav>
               <div className='bg-primary w-full h-[300px]  absolute top-0 z-[-1] left-0'></div>
 
 
               <main className='  flex flex-col  gap-2 xl:w-[60%] lg:w-[70%] md:w-[80%] mx-auto  bg-white  mb-20  mt-10  p-5    drop-shadow-xl' >
-                <CoverAndProfilePicture pictureUrl={formData.details.pictureUrl} coverUrl={formData.details.coverUrl} handleImages={handleImages} />
+                <CoverAndProfilePicture details={formData.details} handleImages={handleImages} />
                 <div className='md:h-14 w-full '></div>
 
 
@@ -354,13 +344,14 @@ export default Profile;
 
 
 
-const CoverAndProfilePicture = ({ pictureUrl, coverUrl, handleImages }) => {
+const CoverAndProfilePicture = ({ details, handleImages}) => {
+  const { pictureId, pictureUrl,coverId,coverUrl } = details
   return (
     <form className="relative w-full h-[350px]  ">
 
       <div className='relative w-full  md:h-80 h-72 group '>
         <img
-          src={coverUrl || '/assets/galaxy.jpg'}
+          src={  coverUrl ||(coverId?  "https://mylinker-server.vercel.app/images/"+coverId: null)  || '/assets/galaxy.jpg'}
           className="w-full h-full object-cover drop-shadow-md"
           alt="Cover"
         />
@@ -384,7 +375,7 @@ const CoverAndProfilePicture = ({ pictureUrl, coverUrl, handleImages }) => {
 
       <div className='relative w-full  group '>
         <img
-          src={pictureUrl || "/assets/profile.jpeg"}
+          src={ pictureUrl ||(pictureId?  "https://mylinker-server.vercel.app/images/"+pictureId: null) || "/assets/profile.jpeg"}
           alt="Profile"
           className="rounded-full lg:h-52 md:h-60 h-40 lg:w-52 md:w-60 w-40 absolute bottom-8 right-1/2 transform translate-x-1/2 translate-y-1/2 border-2 border-primary drop-shadow-md "
         />
@@ -489,11 +480,11 @@ const SocialLinksSection = ({ socialLinks, handleSocialLinksInputs, handleAddSoc
 
 
 
-      <div className='w-[80%] mx-auto gap-4 flex flex-col'>
+      <div className='w-[70%] mx-auto gap-4 flex flex-col'>
 
         {
           socialLinks?.map((socialLink, index) => (
-            <div key={index} className='bg-white drop-shadow w-full  flex flex-col gap-8 p-2 rounded border-y-2 border-primary'>
+            <div key={index} className='bg-white drop-shadow w-full  flex flex-col gap-3 p-2 rounded border-y-2 border-primary'>
 
               <FiTrash className='absolute right-2 top-2 text-red-400 cursor-pointer text-lg' onClick={() => handelDeleteSocialLink(index)} />
               <MdLink size={30} className='mx-auto text-darkgreen' />
@@ -600,7 +591,7 @@ const ProjectsSection = ({ projects, handleProjectImage, handleProjectInputs, ha
           <div className="relative bg-gradient-to-r from-blue-300 to-green-300 p-1 rounded-lg  group">
 
             <img
-              src={project.imgUrl}
+              src={project.imgUrl || (project.imgId ?  "https://mylinker-server.vercel.app/images/"+project.imgId: null)  || '/assets/galaxy.jpg'}
 
               className="w-full md:h-80 h-40 object-cover rounded-lg"
             />
@@ -617,7 +608,7 @@ const ProjectsSection = ({ projects, handleProjectImage, handleProjectInputs, ha
             <label htmlFor={`file-input-${index}`}
               className="absolute   bottom-1/2 right-1/2 transform translate-x-1/2 translate-y-1/2  md:opacity-0  group-hover:opacity-100 transition-all  cursor-pointer">
 
-              <MdCamera color='white' size={50} />
+              <MdCamera color='black' size={50} />
             </label>
 
           </div>

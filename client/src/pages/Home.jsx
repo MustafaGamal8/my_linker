@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { HiArrowLeft } from 'react-icons/hi';
+import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa';
 
 import CallIcon from '../assets/icons/Call.svg';
-
 import WomenSVG from '../assets/women.svg';
 import Man from '../assets/man.svg';
-
 import Share from '../assets/icons/Share.svg';
 import World from '../assets/icons/World.svg';
 import Key from '../assets/icons/Key.svg';
@@ -13,19 +14,9 @@ import Daily from '../assets/icons/Daily.svg';
 import Arrow from '../assets/icons/Arrow.svg';
 import SmailyFace from '../assets/icons/SmailyFace.svg';
 
-
-
-import {  HiArrowLeft } from 'react-icons/hi';
-import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa';
-
-import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import NavBar from '../components/NavBar';
 
-
-
 const Home = () => {
-  const [isShowMore, setIsShowMore] = useState(false)
 
 
   return (
@@ -34,12 +25,12 @@ const Home = () => {
       
 
       <header id='header' className='bg-primary '>
-        <NavBar />
+        {/* <NavBar /> */}
 
-        <section className='flex md:flex-row flex-col justify-around items-center mt-16  p-2'>
+        <section className='flex md:flex-row flex-col justify-around items-center mt-16  p-2 ' >
           <img className='drop-shadow-xl' src={WomenSVG} alt='' />
-          <div className='flex flex-col gap-y-4 items-end'>
-            <h1 className='text-white font-semibold text-5xl text-right'>
+          <div className='flex flex-col gap-y-4 items-end  h-full md:w-[50%]'>
+            <h1 className='text-white font-semibold text-5xl text-right w-full' >
               جرب الان اكثر من 10 قالب <span className='text-purple70 font-bold'>جاهز للمشاركة</span>
             </h1>
             <p className='text-white'>
@@ -53,22 +44,22 @@ const Home = () => {
 
       <section className='my-24 bg-white w-[80%] md:h-24 m-auto rounded-md flex md:flex-row-reverse flex-col justify-center whitespace-nowrap lg:text-base text-sm drop-shadow-xl '>
         <div className='advantage_item'>
-          <img className='h-7' src={Share} alt='' />
+          <img className='h-7 w-7' src={Share} alt='' />
           <h1>شارك اعمالك بسهولة</h1>
         </div>
 
         <div className='advantage_item'>
-          <img className='h-7' src={World} alt='' />
+          <img className='h-7 w-7' src={World} alt='' />
           <h1>تجربة فريدة وجديدة</h1>
         </div>
 
         <div className='advantage_item'>
-          <img className='h-7' src={Daily} alt='' />
+          <img className='h-7 w-7' src={Daily} alt='' />
           <h1>إضافات يوميه</h1>
         </div>
 
         <div className='advantage_item'>
-          <img className='h-7' src={Key} alt='' />
+          <img className='h-7 w-7' src={Key} alt='' />
           <h1>خصوصية فائقة</h1>
         </div>
       </section>
@@ -88,19 +79,12 @@ const Home = () => {
           <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/ktaby.png'} title='موقع كتابي' />
           <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/zaman.png'} title='موقع زمن' />
           <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/we-school.png'} title='موقع وي' />
-          {isShowMore && (
-            <>
-          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/khair.png'} title='موقع خير' />
-          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/ktaby.png'} title='موقع كتابي' />
-          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/zaman.png'} title='موقع زمن' />
-          <Templates img={'https://mustafagamal51112.github.io/mustafagamal51112/db/we-school.png'} title='موقع وي' />
-            </>
-          )}
+          
         </div>
 
-        <button onClick={() => setIsShowMore(!isShowMore)} className='flex flex-row-reverse items-center gap-2 m-auto text-xl mt-10'>
-          <h1>شاهد {!isShowMore ? 'المزيد' : 'القليل'} </h1> <HiArrowLeft />
-        </button>
+        <Link to={'/templates'}  className='flex flex-row-reverse items-center justify-center gap-2  text-xl mt-10 '  >
+          <h1>شاهد المزيد </h1> <HiArrowLeft />
+        </Link>
       </section>
 
       <section id='recommendation' className='mt-10'>
@@ -150,13 +134,15 @@ export default Home;
 
 function Templates({ img, title }) {
   return (
-    <div
+    <Link
+    to={"/templates"}
       className="w-[400px] h-[250px] rounded-lg overflow-hidden relative hover:-translate-y-4 transition-all cursor-pointer group drop-shadow-lg"
     >
       <img
         className="w-full h-full object-cover group-hover:scale-110 transition-all"
         src={img}
         alt=""
+        loading="lazy"
       />
       <h1 className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-center w-full text-white text-xl z-[2]">
         {title}
@@ -164,7 +150,7 @@ function Templates({ img, title }) {
       <div
         className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center w-full bg-black h-[15%] opacity-25 group-hover:h-full transition-all"
       ></div>
-    </div>
+    </Link>
   );
 }
 

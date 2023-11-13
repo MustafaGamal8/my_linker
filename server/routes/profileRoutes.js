@@ -5,7 +5,7 @@ const profileController = require('../controllers/profileController');
 
 
 
-router.get("/", profileController.getProfile);
+router.get("/:userId", profileController.getProfile);
 
 
 

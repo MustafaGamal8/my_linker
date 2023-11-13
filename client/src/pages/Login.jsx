@@ -12,7 +12,7 @@ const Login = () => {
   return (
     <div className="flex justify-center items-center  h-[100vh]" style={{ backgroundImage: `url(${bg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
 
-      <section className="bg-white drop-shadow-xl p-2 md:p-10 rounded lg:w-[35%] md:w-[50%] w-[90%] ">
+      <section className="bg-white drop-shadow-xl p-2 md:p-10 rounded xl:w-[35%] md:w-[50%] w-[85%] ">
         <Link to={"/"}><img src="/assets/logo.png" className='h-36 m-auto' alt="" /></Link>
         <h1 className="text-3xl font-semibold">...مرحبا بك في</h1>
         <h1 className="text-3xl font-bold text-darkgreen mt-2 ">منصتنا</h1>
