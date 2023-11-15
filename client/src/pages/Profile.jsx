@@ -414,7 +414,7 @@ const ProfileInfoSection = ({ formData, handleInputs }) => {
         </div>
 
         <div className='flex items-center justify-around lg:w-[60%] w-[95%] mx-auto mt-8'>
-          <Link target='_blank' to={formData?.details?.email} className='p-2 md:px-14 px-5 rounded-md bg-white border border-gray-700 text-gray-700 flex items-center gap-1 hover:bg-gray-700 hover:text-white transition-all  font-semibold'><img src={messageSvg} alt="" /> <h3>مراسلة</h3></Link>
+          <Link target='_blank' to={'mailto:' +formData?.details?.email} className='p-2 md:px-14 px-5 rounded-md bg-white border border-gray-700 text-gray-700 flex items-center gap-1 hover:bg-gray-700 hover:text-white transition-all  font-semibold'><img src={messageSvg} alt="" /> <h3>مراسلة</h3></Link>
           <Link target='_blank' to={formData?.details?.followLink} className='p-2 md:px-14 px-5 rounded-md bg-primary text-white flex items-center gap-1 hover:bg-darkgreen transition-all  font-semibold'><img src={followSvg} alt="" /> <h3>متابعه</h3></Link>
         </div>
       </section>
@@ -591,7 +591,7 @@ const ProjectsSection = ({ projects, handleProjectImage, handleProjectInputs, ha
           <div className="relative bg-gradient-to-r from-blue-300 to-green-300 p-1 rounded-lg  group">
 
             <img
-              src={project.imgUrl || (project.imgId ?  "https://mylinker-server.vercel.app/images/"+project.imgId: null)  || '/assets/galaxy.jpg'}
+              src={project.imgUrl || project.imgId ?  "https://mylinker-server.vercel.app/images/"+project.imgId: '/assets/galaxy.jpg'}
 
               className="w-full md:h-80 h-40 object-cover rounded-lg"
             />

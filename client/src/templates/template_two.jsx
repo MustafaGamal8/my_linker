@@ -1,177 +1,138 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { TbWorldWww } from 'react-icons/tb';
-import { CiShare1 } from 'react-icons/ci';
-import SocialSlider from './../components/socialSlider';
+import "bootstrap/dist/css/bootstrap.css"
+import "bootstrap/dist/js/bootstrap.bundle.js"
 
-const TemplateTwo = () => {
-  const [mood, setMood] = useState("about")
-
-
-  const theme = {
-    primary: "#242936",
-    secondary: "#2563eb",
-  }
-  const details = {
-    name: "مصطفي جمال",
-    jop: "مبرمج مواقع",
-    email: "mustafagamal51112@gmail.com",
-    followLink: "https://github.com/mustafagamal51112",
-    web: "https://github.com/mustafagamal51112",
-    about: 'مرحبًا، أنا مصطفى، مبرمج مواقع وتطبيقات ويب متخصص. لدي خبرة واسعة في تطوير المواقع والتطبيقات باستخدام مجموعة متنوعة من التقنيات والأطر العمل. أعمل بشغف في مجال تطوير الويب وأسعى دائمًا لتقديم حلاً تقنيًا مبتكرًا لاحتياجات العملاء. أسعد بالعمل على مشاريع تقنية مثيرة والمساهمة في نجاح الأعمال عبر الإنترنت.',
-    socialLinks: [
-      {
-        site: "facebook",
-        link: "https://www.facebook.com",
-      },
-      {
-        site: "twitter",
-        link: "https://www.twitter.com",
-      },
-      {
-        site: "whatsapp",
-        link: "https://www.whatsapp.com",
-      },
-      {
-        site: "github",
-        link: "https://www.github.com",
-      },
-      {
-        site: "behance",
-        link: "https://www.behance.com",
-      }
-    ],
-    Skills: [
-      "github",
-      "html",
-      "css",
-      "javascript"
-    ],
-    projects: [
-      {
-        title: "khair",
-        link: "http://khair-ten.vercel.app/",
-        img: "https://mustafagamal51112.github.io/mustafagamal51112/db/khair.png",
-      },
-      {
-        title: "ktaby",
-        link: "http://ktaby.vercel.app/",
-        img: "https://mustafagamal51112.github.io/mustafagamal51112/db/ktaby.png"
-      },
-      {
-        title: "zaman",
-        link: "https://zaman-web.vercel.app/",
-        img: "https://mustafagamal51112.github.io/mustafagamal51112/db/zaman.png"
-      },
-      {
-        title: "we-School",
-        link: "https://we-school.vercel.app/",
-        img: "https://mustafagamal51112.github.io/mustafagamal51112/db/we-school.png"
-      }
-    ]
-  }
-
-
-
-
-
-
-
+const TemplateTwo = ({ userDetails }) => {
+  const [details, setDetails] = useState(userDetails)
 
   return (
-    <section className='relative'  >
-      <img src="/assets/covers/man.jpg" alt="" className='  absolute top-0 left-0 w-full h-52 md:h-80 object-cover drop-shadow-lg' />
-      <div className='h-32 md:h-52'></div> 
+    <>
+        <main className="flex-shrink-0">
 
-
-
-      <div className='flex flex-col lg:items-start lg:flex-row-reverse '>
-
-        <div className='lg:w-[20%] bg-white-500  flex flex-col items-center justify-center   p-2 pb-20 rounded-md   bg-white'>
-          <img src="/assets/profile.jpeg" alt="" className='bg-white drop-shadow-lg p-1 rounded-full   md:w-52 md:h-52  w-36 h-36' />
-          <h1 className='text-2xl font-semibold ' style={{ color: theme.primary }}>{details.name}</h1>
-          <p className='text-lg font-semibold' style={{ color: theme.secondary }}>{details.jop}</p>
-          <Link to={details.followLink} target='_blank' className='p-3  px-8 text-white rounded  mt-4' style={{ background: theme.secondary }}>متابعة</Link>
-          <Link to={details.web} target='_blank' className='flex items-center gap-1 underline my-5'><TbWorldWww className='text-xl' style={{ color: theme.secondary }} />{details.web}</Link>
-
-
-
-          <div className='w-full'><SocialSlider slides={details.socialLinks} color={theme.secondary} /></div>
-        </div>
-
-
-
-        <div className=' md:w-[80%] w-full m-auto  p-2 pb-20 rounded-md     lg:mt-36 '>
-          <div className=' w-full h-10 flex flex-row-reverse items-center  p-2 gap-5'>
-            {
-              details.about &&
-              <button onClick={() => setMood("about")} className='p-2 px-4 rounded-full text-white  hover:scale-95 transition-all' style={{ background: theme.secondary }}>عني</button>
-            }
-            {
-              details.Skills &&
-              <button onClick={() => setMood("skills")} className='p-2 px-4 rounded-full text-white  hover:scale-95 transition-all' style={{ background: theme.secondary }}>المهارات</button>
-            }
-            {
-              details.projects &&
-              <button onClick={() => setMood("projects")} className='p-2 px-4 rounded-full text-white  hover:scale-95 transition-all' style={{ background: theme.secondary }}>المشاريع</button>
-            }
-          </div>
-
-          <div className='lg:w-[90%]  mt-10 drop-shadow-md m-auto'>
-
-
-          <div className='lg:w-[80%] m-auto'>
-              {mood === "about" && details.about && (
-                <h1 className="text-xl text-center text-white py-4 rounded-lg shadow-lg select-text" style={{background:theme.secondary}}>
-                  {details.about}
-                </h1>
-              )}
+          {/* navbar */}
+          <nav className="navbar navbar-expand-lg navbar-light bg-white py-3">
+            <div className="container px-5">
+              <a className="navbar-brand cursor-pointer" href="/"><span className="fw-bolder text-primary">MyLinker</span></a>
+              <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon" /></button>
+              <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul className="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                  <li className="nav-item text-capitalize"><a className="nav-link" href="#header">Home</a></li>
+                  <li className="nav-item text-capitalize"><a className="nav-link" href="#about">about</a></li>
+                  <li className="nav-item text-capitalize"><a className="nav-link" href="#skills">skills</a></li>
+                  <li className="nav-item text-capitalize"><a className="nav-link" href="#projects">Projects</a></li>
+                </ul>
+              </div>
             </div>
-
-
-            <div className='flex   items-center w-full  flex-wrap lg:justify-start justify-center  gap-5  p-2 ' >
-              {
-                mood == "projects" && details.projects && details.projects.map(project => (
-                  <div className='w-96 bg-white drop-shadow-lg rounded-xl  flex flex-col justify-center gap-3 '>
-                    <img className=' w-full object-cover rounded-xl drop-shadow' src={project.img} alt="" />
-                    <h1 className=' text-xl font-semibold text-center uppercase' style={{ color: theme.primary }}>{project.title}</h1>
-
-                    <Link to={project.link} target='_blank' className='w-full flex items-center justify-center p-1 text-white hover:translate-y-1 transition-all  text-xl' style={{ background: theme.secondary }} ><CiShare1 /></Link>
-
-
+          </nav>
+          {/* header */}
+          <header className="py-5 " id='header'>
+            <div className="container px-5 pb-5 mx-auto">
+              <div className="row gx-5 align-items-center">
+                <div className="col-xxl-5">
+                  <div className="text-center text-xxl-start">
+                    <div className="fs-3 fw-light text-muted text-capitalize">{details.job}</div>
+                    <h1 className="display-3 fw-bolder mb-5 text-capitalize text-primary">{details.name}</h1>
+                    <div className="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
+                      <Link className="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" to={`mailto:${details.email}`}>conatct</Link>
+                      <Link className="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder" to="projects">Projects</Link>
+                    </div>
                   </div>
-                ))
-              }
+                </div>
+                <div className="col-xxl-7">
+                  <div className="d-flex justify-content-center mt-5 mt-xxl-0">
+                    <div className="profile bg-primary-to-secondary mx-auto ">
+                      <img className=" rounded w-75  shadow   " src={details.pictureId ? "https://mylinker-server.vercel.app/images/" + details.pictureId :  "/assets/profile.jpeg"} alt="..." />
+
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </header>
 
-
-
-            
-
-
-
-            <div className='flex flex-col w-full gap-5'>
-            {mood === "skills" && details.Skills && details.Skills.map(skill=>(
-              
-              <h1 className='text-2xl  p-2 rounded  w-[50%] m-auto text-center capitalize hover:-translate-y-2 transition-all text-white' style={{background:theme.secondary}}>{skill}</h1>
-            )) }
+          {/* about */}
+          <section className="bg-light py-5" id='about'>
+            <div className="container px-5">
+              <div className="row gx-5 justify-content-center">
+                <div className="col-xxl-8">
+                  <div className="text-center my-5">
+                    <h2 className="display-5 fw-bolder"><span className="text-gradient d-inline">About Me</span></h2>
+                    <p className="lead fw-light mb-4">{details.about}</p>
+                    <div className="d-flex justify-content-center fs-2 gap-4">
+                      <Link className="text-gradient" to="#!"><i className="bi bi-twitter" /></Link>
+                      <Link className="text-gradient" to="#!"><i className="bi bi-linkedin" /></Link>
+                      <Link className="text-gradient" to="#!"><i className="bi bi-github" /></Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </section>
+
+
+          { /* projects */}
+          <section className="py-5">
+            <div className="container px-5 mb-5">
+              <div className="text-center mb-5">
+                <h1 className="display-5 fw-bolder mb-0"><span className="text-gradient d-inline">Projects</span></h1>
+              </div>
+              <div className="row gx-5  justify-content-center">
+                  {details.projects &&  details.projects.map((project, index) => (
+                <div className="col-lg-11 col-xl-9 col-xxl-8 card-shadow">
+                  <div className="card shadow  rounded-4 border-0 mb-5">
+                  <div className="card-body p-0">
+                    <div className="d-flex align-items-center">
+                      <div className="p-5">
+                        <h2 className="fw-bolder">{project.name}</h2>
+                        <Link className="btn btn-outline-primary btn-lg px-5 py-3 fs-6 fw-bolder">Visit</Link>
+                        
+                        </div>
+                      <img className="img-fluid h-100 w-50" src={ project.imgId ? "https://mylinker-server.vercel.app/images/" + project.imgId : "https://dummyimage.com/300x400/343a40/6c757d"} alt="..." />
+                    </div>
+                  </div>
+                </div>
+                </div>
+                  ))}
+              </div>
+            </div>
+            <section className="py-5 bg-gradient-primary-to-secondary text-white">
+              <div className="container px-5 my-5">
+                <div className="text-center">
+                  <h2 className="display-4 fw-bolder mb-4">Let's build something together</h2>
+                  <a className="btn btn-outline-light btn-lg px-5 py-3 fs-6 fw-bolder" href="contact.html">Contact me</a>
+                </div>
+              </div>
+            </section>
+          </section>
 
 
 
+
+        </main>
+
+
+
+
+        <footer className="bg-white py-4 mt-auto">
+          <div className="container px-5">
+            <div className="row align-items-center justify-content-between flex-column flex-sm-row">
+              <div className="col-auto"><div className="small m-0">Copyright © Msuatfa Gamal 2023</div></div>
+              <div className="col-auto">
+                <Link className="small" target='_blank' to="https://www.facebook.com/mustafa.gamal.9231712/">Facebook</Link>
+                <span className="mx-1">·</span>
+                <Link className="small" target='_blank' to="https://www.linkedin.com/in/mustafa-gamal-ba48a7243/">Linkedin</Link>
+                <span className="mx-1">·</span>
+                <Link className="small" target='_blank' to="mailto:mustafagamal51112@gmail.com">Contact</Link>
+              </div>
+            </div>
           </div>
+        </footer>
 
-
-
-
-        </div>
-
-
-      </div>
-
-    </section>
+    </>
   );
 }
 
 export default TemplateTwo;
+
