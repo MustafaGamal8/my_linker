@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 const TemplateOne = lazy(() => import('../templates/template_one'));
 const TemplateTwo = lazy(() => import('../templates/template_two'));
 const TemplateThree = lazy(() => import('../templates/template_three/template_three'));
+const TemplateFour = lazy(() => import('../templates/teamplate_four/teamplate_four'));
 // Import other templates as needed
 
 const Temp = () => {
@@ -31,6 +32,7 @@ const Temp = () => {
     one: TemplateOne,
     two: TemplateTwo,
     three: TemplateThree,
+    four: TemplateFour,
   };
 
   const ChosenTemplate = templates[tempName] || TemplateOne;

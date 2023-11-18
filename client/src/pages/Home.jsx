@@ -51,7 +51,7 @@ const Home = () => {
         </section>
       </header>
 
-      <section className='my-24 bg-white w-[80%] md:h-24 m-auto rounded-md flex md:flex-row-reverse flex-col justify-center whitespace-nowrap lg:text-base text-sm drop-shadow-xl '>
+      <section className='my-24 bg-white w-[80%] md:h-24 m-auto rounded-md flex md:flex-row-reverse flex-col justify-center whitespace-nowrap lg:text-base text-sm drop-shadow-xl ' data-aos="fade-up-left" > 
         {[
           { img: Share, text: 'شارك اعمالك بسهولة' },
           { img: World, text: 'تجربة فريدة وجديدة' },

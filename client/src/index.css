@@ -1,16 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-*{
-  font-family: 'Tajawal', sans-serif;
-  user-select: none;
-  -webkit-user-drag: none;
-  scroll-behavior: smooth;
-  
-}
 
 
 body {

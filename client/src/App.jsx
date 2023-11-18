@@ -1,18 +1,19 @@
-import {  Route, Routes ,Navigate } from "react-router-dom"
+import {  Route, Routes  } from "react-router-dom"
 import Profile from './pages/Profile';
-import Auth from "./pages/auth";
 import { ToastContainer  } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Home from "./pages/Home";
-import toastConfig from "./config/toastConfig";
+import Auth from "./pages/auth";
 import NotFound from "./pages/NotFound";
 import Templates from "./pages/Templates";
 import Temp from "./pages/temp";
-if (!window.location.pathname.includes("/temp")) {
-  import('./index.css');
-}
+import toastConfig from "./config/toastConfig";
+import "./style.css"
+import { useEffect } from "react";
+if (!window.location.pathname.includes("///")) import('./index.css') 
+
 function App() {
-  
+
   const config = toastConfig(1000 > window.innerWidth);
 
 

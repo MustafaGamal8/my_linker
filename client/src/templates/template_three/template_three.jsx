@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import "./css/bootstrap.min.css"
 import "./css/style.css"
+import "bootstrap/dist/js/bootstrap.bundle.min.js"
 
 import { GoLink } from "react-icons/go";
 import { IoIosArrowRoundUp } from "react-icons/io";
 import { BsFillSendFill } from "react-icons/bs";
 import { FaEye } from "react-icons/fa";
+
+
 const TemplateThree = ({ userDetails }) => {
   const [details, setDetails] = useState(userDetails)
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
+
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -25,38 +30,32 @@ const TemplateThree = ({ userDetails }) => {
     <>
       <div className="container-xxl bg-white p-0">
         {/* Spinner Start */}
-      {
-        loading &&   <div id="spinner" className="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div className="spinner-grow text-primary" style={{ width: '3rem', height: '3rem' }} role="status">
-        </div>
-      </div>
-      }
+        {
+          loading && <div id="spinner" className="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div className="spinner-grow text-primary" style={{ width: '3rem', height: '3rem' }} role="status">
+            </div>
+          </div>
+        }
 
         {/* Spinner End */}
         {/* Navbar & Hero Start */}
         <div className="container-xxl position-relative p-0">
+
+
           <nav className="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-            <a href="/" className="navbar-brand p-0 d-flex align-items-center">
-              <h2 className="m-0  text-info"> MyLinker</h2>
-              <img src="/assets/logo.png" alt="Logo" />
+            <a href="/" className="navbar-brand p-0 cursor-pointer">
+              <img src="/assets/logo.png" alt="Logo"/>
             </a>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-              <span className="fa fa-bars" />
-            </button>
-            <div className="collapse navbar-collapse" id="navbarCollapse">
-              <div className="navbar-nav mx-auto py-0">
-                <a href="#about" className="nav-item nav-link">About</a>
-                <a href="#skills" className="nav-item nav-link">Skills</a>
-                <a href="#socialLinks" className="nav-item nav-link">SocialLinks</a>
-                <a href="#projects" className="nav-item nav-link">Projects</a>
-              </div>
+            <div className="navbar-nav mx-auto py-0  d-flex flex-row">
+              <a href="#about" className="nav-link mx-2 lg-text-light">About</a>
+              <a href="#skills" className=" nav-link mx-2" >Skills</a>
+              <a href="#socialLinks" className=" nav-link mx-2" >SocialLinks</a>
+              <a href="#projects" className=" nav-link mx-2 ">Projects</a>
             </div>
           </nav>
 
 
-
-
-          <div id='about' className="container-xxl bg-primary hero-header">
+          <div id='about' className="container-xxl bg-primary hero-header "  >
             <div className="container px-lg-5">
               <div className="row g-5 align-items-center justify-content-around">
                 <div className="col-lg-6 text-center text-lg-start ">
@@ -78,15 +77,15 @@ const TemplateThree = ({ userDetails }) => {
         {/* skills Start */}
         {
           details.skills &&
-          <div id='skills' className="container-xxl py-5">
+          <div id='skills' className="container-xxl py-5 ">
             <div className="container py-5 px-lg-5 text-capitalize">
-              <div className="wow fadeInUp" data-wow-delay="0.1s">
+              <div className="wow fadeInUp" >
                 <p className="section-title text-secondary justify-content-center"><span />Skills<span /></p>
                 <h1 className="text-center mb-5">What i can do</h1>
               </div>
-              <div className="row g-4">
-                {details.skills.map((skill,index) => (
-                  <div key={index} className="col-lg-4 col-8 mx-auto wow fadeInUp" data-wow-delay="0.1s">
+              <div className="row g-4" data-aos="fade-up">
+                {details.skills.map((skill, index) => (
+                  <div key={index} className="col-lg-4 col-8 mx-auto wow fadeInUp fade-in"  >
                     <div className="feature-item bg-light rounded text-center p-4">
                       <i className="fa fa-3x fa-mail-bulk text-primary mb-4" />
                       <h5 className="mb-3">{skill.name}</h5>
@@ -112,8 +111,8 @@ const TemplateThree = ({ userDetails }) => {
                 <h1 className="text-center mb-5">my Social media</h1>
               </div>
               <div className="row g-4">
-                {details.socialLinks && details.socialLinks.map((social,index) => (
-                  <div key={index} className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                {details.socialLinks && details.socialLinks.map((social, index) => (
+                  <div key={index} className="col-lg-4 col-md-5 wow fadeInUp" data-wow-delay="0.1s">
                     <div className="service-item d-flex flex-column text-center rounded">
                       <div className="service-icon flex-shrink-0">
                         <GoLink />
@@ -165,7 +164,7 @@ const TemplateThree = ({ userDetails }) => {
 
         {/* Projects Start */}
 
-        { details.projects &&
+        {details.projects &&
           <div id='projects' className="container-xxl py-5">
             <div className="container py-5 px-lg-5">
               <div className="wow fadeInUp" data-wow-delay="0.1s">
@@ -173,8 +172,8 @@ const TemplateThree = ({ userDetails }) => {
                 <h1 className="text-center mb-5">Recently Projects</h1>
               </div>
               <div className="row g-4 portfolio-container">
-                {details.projects && details.projects.map((project,index) => (
-                  <div key={index} className="col-lg-4 col-md-6 n portfolio-item first wow fadeInUp "  data-wow-delay="0.1s">
+                {details.projects && details.projects.map((project, index) => (
+                  <div key={index} className="col-lg-4 col-md-6 n portfolio-item first wow fadeInUp " data-wow-delay="0.1s">
                     <div className="rounded overflow-hidden h-100">
                       <div className="position-relative overflow-hidden">
                         <img className="img-fluid w-100 h-25" src={project.imgId ? "https://mylinker-server.vercel.app/images/" + project.imgId : '/assets/galaxy.jpg'} alt="project image" />
@@ -217,6 +216,9 @@ const TemplateThree = ({ userDetails }) => {
 
     </>
   );
+
+
+  
 }
 
 export default TemplateThree;
