@@ -44,7 +44,12 @@ const signUp = asyncHandler(async (req, res) => {
 
 
 const login = asyncHandler(async (req, res) => {
-  const user = await UserModel.findOne({ email: req.body.email, authProvider: { provider: "local" } })
+  const user = await UserModel.findOne({
+    email: req.body.email,
+    'authProvider.provider': 'local' 
+  });
+  console.log(user)
+
 
   if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
     return res.status(403).json({ error: "البريد الالكتروني أو كلمة المرور غير صحيح" });

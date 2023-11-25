@@ -202,10 +202,10 @@ function Footer() {
 
         <h1 className='font-semibold text-3xl'>المشاريع السابقة</h1>
 
-        <Link to={'https://we-school.vercel.app'} className='text-xl  '>وي <TbWorldCheck /></Link>
-        <Link to={'https://ktaby.vercel.app'} className='text-xl  '>كتابي <TbWorldCheck /></Link>
-        <Link to={'https://zaman-web.vercel.app'} className='text-xl  '>زمن <TbWorldCheck /></Link>
-        <Link to={'https://khair-ten.vercel.app'} className='text-xl  '>خير <TbWorldCheck /></Link>
+        <Link to={'https://we-school.vercel.app'} className='text-xl   flex items-center justify-end gap-1'>وي <TbWorldCheck /></Link>
+        <Link to={'https://ktaby.vercel.app'} className='text-xl flex items-center justify-end gap-1  '>كتابي <TbWorldCheck /></Link>
+        <Link to={'https://zaman-web.vercel.app'} className='text-xl flex items-center justify-end gap-1  '>زمن <TbWorldCheck /></Link>
+        <Link to={'https://khair-ten.vercel.app'} className='text-xl flex items-center justify-end gap-1  '>خير <TbWorldCheck /></Link>
 
 
       </section>

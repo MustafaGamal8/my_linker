@@ -75,7 +75,9 @@ function NavBar() {
             <div className='flex items-center  '><HiMenuAlt1 className='text-2xl text-white cursor-pointer' onClick={toggleSidebar} /></div>
 
             <div className=' flex flex-col-reverse  items-center justify-between gap-8 whitespace-nowrap '>
-              <div onClick={LogoutHandler} className='p-2 rounded-xl text-white  bg-red-400 flex items-center gap-2 cursor-pointer mx-1' ><CiLogout /> تسجيل الخروج</div>
+              {isUserExists && 
+               <div onClick={LogoutHandler} className='p-2 rounded-xl text-white  bg-red-400 flex items-center gap-2 cursor-pointer mx-1' ><CiLogout /> تسجيل الخروج</div>
+              }
               <Link to={'/profile'} className='Side_Item'><h1>الملف الشخصي</h1> <img src={ProfileIcon} alt="" /></Link>
               <a href="#footer" className='Side_Item'><h1>تواصل معنا</h1> <img src={CallIcon} alt="" /></a>
               <a href='#recommendation' className='Side_Item'><h1>التوصيات</h1>  <img src={PartenersIcon} alt="" /></a>

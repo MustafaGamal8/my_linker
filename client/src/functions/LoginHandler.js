@@ -3,8 +3,8 @@ import { toast } from 'react-toastify';
 import Cookies from 'universal-cookie';
 
 
-const ServerUrl = "https://mylinker-server.vercel.app";
-
+// const ServerUrl = "https://mylinker-server.vercel.app";
+const ServerUrl = "http://localhost:3000";
 
 const LoginHandler = async (email, password) => {
   const cookies = new Cookies();
