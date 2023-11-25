@@ -31,7 +31,8 @@ const signUp = asyncHandler(async (req, res) => {
     displayName: form.displayName,
     password: hashedPwd,
     authProvider: {
-      provider: "local"
+      provider: "local",
+      providerUserId: form.email
     }
   })
 

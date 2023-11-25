@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { HiArrowLeft } from 'react-icons/hi';
 import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa';
+import {TbWorldCheck} from 'react-icons/tb'
 
 import CallIcon from '../assets/icons/Call.svg';
 import WomenSVG from '../assets/women.webp';
@@ -201,10 +202,10 @@ function Footer() {
 
         <h1 className='font-semibold text-3xl'>المشاريع السابقة</h1>
 
-        <Link to={'https://we-school.vercel.app'} className='text-xl  '>وي</Link>
-        <Link to={'https://ktaby.vercel.app'} className='text-xl  '>كتابي</Link>
-        <Link to={'https://zaman-web.vercel.app'} className='text-xl  '>زمن</Link>
-        <Link to={'https://khair-ten.vercel.app'} className='text-xl  '>خير</Link>
+        <Link to={'https://we-school.vercel.app'} className='text-xl  '>وي <TbWorldCheck /></Link>
+        <Link to={'https://ktaby.vercel.app'} className='text-xl  '>كتابي <TbWorldCheck /></Link>
+        <Link to={'https://zaman-web.vercel.app'} className='text-xl  '>زمن <TbWorldCheck /></Link>
+        <Link to={'https://khair-ten.vercel.app'} className='text-xl  '>خير <TbWorldCheck /></Link>
 
 
       </section>
