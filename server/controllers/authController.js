@@ -48,7 +48,6 @@ const login = asyncHandler(async (req, res) => {
     email: req.body.email,
     'authProvider.provider': 'local' 
   });
-  console.log(user)
 
 
   if (!user || !(await bcrypt.compare(req.body.password, user.password))) {

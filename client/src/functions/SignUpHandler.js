@@ -2,8 +2,7 @@ import axios from "axios";
 import { redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 
-// const ServerUrl = "https://mylinker-server.vercel.app";
-const ServerUrl = "http://localhost:3000";
+const ServerUrl = "https://mylinker-server.vercel.app";
 
 const SignUpHandler = async (email, password,displayName) => {
   const loadingToast = toast.loading("جاري إنشاء حساب");
