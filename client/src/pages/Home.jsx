@@ -16,14 +16,18 @@ import SmailyFace from '../assets/icons/SmailyFace.svg';
 
 import NavBar from '../components/NavBar';
 
+import t1 from '../assets/templates/t1.png';
+import t3 from '../assets/templates/t3.png';
+import t4 from '../assets/templates/t4.png';
+
 
 const Home = () => {
 
 
   const templateData = [
-    { img: 'https://mustafagamal51112.github.io/mustafagamal51112/db/khair.png', title: 'موقع خير' },
-    { img: 'https://mustafagamal51112.github.io/mustafagamal51112/db/we-school.png', title: 'موقع وي' },
-    { img: 'https://mustafagamal51112.github.io/mustafagamal51112/db/ktaby.png', title: 'موقع كتابي' },
+    { img: t1, title: '' },
+    { img: t3, title: '' },
+    { img: t4, title: ''},
     
   ];
 

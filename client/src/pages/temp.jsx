@@ -10,7 +10,7 @@ const TemplateFour = lazy(() => import('../templates/teamplate_four/teamplate_fo
 // Import other templates as needed
 
 const Temp = () => {
-  const { tempName, userId } = useParams();
+  let { tempName, userId } = useParams();
   const [userDetails, setUserDetails] = useState({});
   const [dataFetched, setDataFetched] = useState(false);
 
@@ -18,6 +18,10 @@ const Temp = () => {
     if (!userId || userId.length < 4) {
       toast.error("يرجي ادخال اسم المستخدم");
       return;
+    }
+
+    if (userId.includes("@")) {
+      userId = userId.split("@")[0];
     }
     const data = await ProfileDataHandler(userId);
     setUserDetails(data);

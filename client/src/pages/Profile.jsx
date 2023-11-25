@@ -223,7 +223,8 @@ const Profile = () => {
   const handleProjectImage = (imgFile, imgUrl, index) => {
     const updatedProjects = [...formData.details.projects];
     updatedProjects[index].imgUrl = imgUrl;
-    updatedProjects[index].imgFile = imgFile
+    updatedProjects[index].imgFile = imgFile;
+    console.log(updatedProjects[index])
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -591,7 +592,7 @@ const ProjectsSection = ({ projects, handleProjectImage, handleProjectInputs, ha
           <div className="relative bg-gradient-to-r from-blue-300 to-green-300 p-1 rounded-lg  group">
 
             <img
-              src={project.imgUrl || project.imgId ?  "https://mylinker-server.vercel.app/images/"+project.imgId: '/assets/galaxy.jpg'}
+              src={project.imgUrl || (project.imgId ?  "https://mylinker-server.vercel.app/images/"+project.imgId: '/assets/galaxy.jpg')}
 
               className="w-full md:h-80 h-40 object-cover rounded-lg"
             />
