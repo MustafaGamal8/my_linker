@@ -26,7 +26,7 @@ function App() {
 
   return (
     <main className={`w-full h-screen overflow-y-auto `}>
-      {isLoading ? (
+      {isLoading && 1200 < window.innerWidth ? (
       <div className="loader_bx"><span className="loader"></span></div>
       ) : ('')}
       <Routes>
