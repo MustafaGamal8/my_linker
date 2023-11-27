@@ -9,12 +9,16 @@ import Templates from "./pages/Templates";
 import Temp from "./pages/temp";
 import toastConfig from "./config/toastConfig";
 import "./style.css"
-import { useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!window.location.pathname.includes("///")) import('./index.css')
+    setTimeout(() => {
+      setIsLoading(false);
 
+    }, 2000);
   }, [])
   const config = toastConfig(1000 > window.innerWidth);
 
@@ -22,7 +26,9 @@ function App() {
 
   return (
     <main className={`w-full h-screen overflow-y-auto `}>
-
+      {isLoading ? (
+      <div className="loader_bx"><span className="loader"></span></div>
+      ) : ('')}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth/:mood" element={<Auth />} />
@@ -32,10 +38,7 @@ function App() {
         <Route path="/temp/:tempName/:userId" element={<Temp />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-
-      <ToastContainer
-        {...config}
-      />
+      <ToastContainer {...config} />
     </main>
   )
 }

@@ -12,6 +12,15 @@ export default {
         purple70:"#6929C4",
         darkgreen:"#21A098",
         darkblue:"#297EA6"  
+      },
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(7px)' },
+        }
+      },
+      animation: {
+        wiggle: 'wiggle 2s ease-in-out infinite',
       }
     },
     

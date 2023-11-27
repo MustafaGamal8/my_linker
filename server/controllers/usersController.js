@@ -74,7 +74,7 @@ const getUser = asyncHandler(async (req, res) => {
 const handelInitalizeUser = asyncHandler(async (req, res) => {
   const user = req.user
   user.details = {
-    name: "",
+    name:  "",
     pictureId: '',
     coverId: '',
     email: "",

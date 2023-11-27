@@ -7,19 +7,19 @@ import {TbWorldCheck} from 'react-icons/tb'
 
 import CallIcon from '../assets/icons/Call.svg';
 import WomenSVG from '../assets/women.webp';
-import Man from '../assets/man.svg';
-import Share from '../assets/icons/Share.svg';
-import World from '../assets/icons/World.svg';
-import Key from '../assets/icons/Key.svg';
-import Daily from '../assets/icons/Daily.svg';
+import Man from '../assets/man.webp';
+import Share from '../assets/icons/Share.webp';
+import World from '../assets/icons/World.webp';
+import Key from '../assets/icons/Key.webp';
+import Daily from '../assets/icons/Daily.webp';
 import Arrow from '../assets/icons/Arrow.svg';
 import SmailyFace from '../assets/icons/SmailyFace.svg';
 
 import NavBar from '../components/NavBar';
 
-import t1 from '../assets/templates/t1.png';
-import t3 from '../assets/templates/t3.png';
-import t4 from '../assets/templates/t4.png';
+import t1 from '../assets/templates/t1.webp';
+import t3 from '../assets/templates/t3.webp';
+import t4 from '../assets/templates/t4.webp';
 
 
 const Home = () => {
@@ -96,11 +96,9 @@ const Home = () => {
 
         <div className='flex flex-col md:flex-row gap-y-20 items-center justify-center w-[90%] mt-16 mx-auto gap-5'>
           <Recommendation
-            img={Man}
-            name={'مصطفي جمال'}
-            p={
-              'موقع رائع وجميل وانصح به بشدة. لقد اذهلني جدا. موقع رائع وجميل وانصح به بشدة. لقد اذهلني جداموقع رائع وجميل وانصح به بشدة. لقد اذهلني جدا'
-            }
+            img={'https://media.licdn.com/dms/image/D4D35AQFd87yyXnJYHA/profile-framedphoto-shrink_200_200/0/1700815249070?e=1701723600&v=beta&t=1ywT_LA2IssUPS1SzaFG2OaED-yBCt6gw1QxxoEPVaA'}
+            name={'karem  '}
+            p={'Well done my friend, I am always proud of you and your works, I wish you a bright future'}
           />
           <Recommendation
             img={Man}
@@ -157,11 +155,11 @@ function Recommendation({ img, p, name }) {
   return (
     <div className=' relative  w-[430px] h-[230px]   bg-primary hover:bg-purple70 hover:-translate-y-5 p-2 rounded transition-all text-white '>
       <img className='m-auto mt-5 red w-6 h-6' src={SmailyFace} alt="" />
-      <p className='text-center mt-5 '>{p}</p>
+      <p className='text-center mt-5  capitalize'>{p}</p>
 
       <div className='absolute -bottom-7  left-1/2 transform -translate-x-1/2  rounded-full w-20 h-20 bg-white'>
-        <img className='w-20 h-20' src={img} alt="" />
-        <h1 className='text-black  text-center'>{name}</h1>
+        <img className='w-20 h-20  rounded-full' src={img} alt="" />
+        <h1 className='text-black  text-lg font-semibold text-center'>{name}</h1>
       </div>
 
     </div>

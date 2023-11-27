@@ -8,7 +8,7 @@ import { LuCamera } from 'react-icons/lu';
 import followSvg from '../assets/icons/follow.svg'
 import messageSvg from '../assets/icons/message.svg'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
-import bg from '../assets/bg.svg'
+import bg from '../assets/bg.webp'
 import { MdPerson, MdCamera, MdLink, MdInfoOutline } from 'react-icons/md'
 import { BsBriefcaseFill } from 'react-icons/bs'
 import { FiTrash } from 'react-icons/fi'

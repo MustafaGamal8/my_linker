@@ -1,15 +1,15 @@
 import React from 'react';
 import { CiHome, CiUser } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
-import bg from '../assets/bg.svg';
-import t1 from '../assets/templates/t1.png';
-import t3 from '../assets/templates/t3.png';
-import t4 from '../assets/templates/t4.png';
+import bg from '../assets/bg.webp';
+import t1 from '../assets/templates/t1.webp';
+import t3 from '../assets/templates/t3.webp';
+import t4 from '../assets/templates/t4.webp';
 import { MdContentCopy } from 'react-icons/md';
 import  Cookies  from 'universal-cookie';
 import { toast } from 'react-toastify';
 import { LuExternalLink } from 'react-icons/lu';
-import grow from '../assets/grow.svg';
+import grow from '../assets/grow.webp';
 import { GoHome } from 'react-icons/go';
 
 const Templates = () => {
@@ -87,7 +87,8 @@ const Templates = () => {
         </div>
 
         </section>
-        <div className='h-16'><svg className='w-full h-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="ScrollUp"><path fill="#4285f4" d="M12 19.5a.997.997 0 0 1-.707-.293l-3-3a1 1 0 0 1 1.414-1.414L12 17.086l2.293-2.293a1 1 0 0 1 1.414 1.414l-3 3A.997.997 0 0 1 12 19.5zm3-9a.997.997 0 0 1-.707-.293L12 7.914l-2.293 2.293a1 1 0 0 1-1.414-1.414l3-3a1 1 0 0 1 1.414 0l3 3A1 1 0 0 1 15 10.5z" class="color6563ff svgShape"></path></svg></div>
+
+        <div className='h-16 animate-wiggle '><svg className='w-full h-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="ScrollUp"><path fill="#4285f4" d="M12 19.5a.997.997 0 0 1-.707-.293l-3-3a1 1 0 0 1 1.414-1.414L12 17.086l2.293-2.293a1 1 0 0 1 1.414 1.414l-3 3A.997.997 0 0 1 12 19.5zm3-9a.997.997 0 0 1-.707-.293L12 7.914l-2.293 2.293a1 1 0 0 1-1.414-1.414l3-3a1 1 0 0 1 1.414 0l3 3A1 1 0 0 1 15 10.5z" class="color6563ff svgShape"></path></svg></div>
 
 
 
@@ -125,8 +126,8 @@ function Template({ img, title, handleCopyClick,handleOpenClick }) {
         alt=""
         loading="lazy"
       />
-      <h1 className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-center w-full text-white text-xl z-[2] font-semibold">
-        {title}
+      <h1 className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-center w-full text-white text-xl z-[2] font-semibold capitalize">
+        Teamplate - {title}
       </h1>
       <div
         className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center w-full bg-black h-[15%] opacity-25 "

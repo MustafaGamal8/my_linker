@@ -3,7 +3,7 @@ import { BsCheckLg, BsLink45Deg } from "react-icons/bs"
 import { HiEye, HiEyeOff, HiLockClosed, HiOutlineMail } from "react-icons/hi"
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import bg from "../assets/bg.svg"
+import bg from "../assets/bg.webp"
 import { Link } from "react-router-dom";
 import  LoginHandler  from "../functions/LoginHandler";
 
