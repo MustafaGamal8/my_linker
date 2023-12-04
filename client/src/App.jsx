@@ -17,7 +17,6 @@ function App() {
     if (!window.location.pathname.includes("///")) import('./index.css')
     setTimeout(() => {
       setIsLoading(false);
-
     }, 2000);
   }, [])
   const config = toastConfig(1000 > window.innerWidth);
@@ -26,9 +25,14 @@ function App() {
 
   return (
     <main className={`w-full h-screen overflow-y-auto `}>
-      {isLoading && 1200 < window.innerWidth ? (
-      <div className="loader_bx"><span className="loader"></span></div>
-      ) : ('')}
+      {
+        isLoading && (
+          <div className="loader_bx"><span className="loader"></span></div>
+        )
+      }
+
+      {!isLoading && (
+        <>      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth/:mood" element={<Auth />} />
@@ -39,6 +43,8 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer {...config} />
+      </>
+      )}
     </main>
   )
 }
