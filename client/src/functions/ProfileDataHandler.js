@@ -1,13 +1,11 @@
-import axios from "axios";
+
 import { toast } from "react-toastify";
+import ApiUrl from "../config/baseUrl";
 
 
-// const ServerUrl = "http://localhost:3000";
-
-const ServerUrl = "https://mylinker-server.vercel.app";
 const ProfileDataHandler = async (userId) => {
   try {
-    const response =  await axios.get(ServerUrl +  `/profile/${userId}`)
+    const response =  await ApiUrl.get(`/profile/${userId}`)
       return response.data
     
   } catch (error) {

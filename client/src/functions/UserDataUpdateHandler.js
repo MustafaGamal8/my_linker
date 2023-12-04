@@ -1,10 +1,6 @@
-import axios from "axios";
 import { toast } from "react-toastify";
 import UserFetchHandler from "./UserFetchHandler";
-
-// const ServerUrl = "http://localhost:3000";
-
-const ServerUrl = "https://mylinker-server.vercel.app";
+import ApiUrl from "../config/baseUrl";
 
 
 const UserDataHandler = async (data, token) => {
@@ -37,7 +33,7 @@ const UserDataHandler = async (data, token) => {
   formData.append('details', JSON.stringify(data.details));
 
   try {
-    const response = await axios.put(`${ServerUrl}/users/update`, formData, {
+    const response = await ApiUrl.put(`${ServerUrl}/users/update`, formData, {
       headers: {
         'x-auth-token': token,
         // 'Content-Type': 'multipart/form-data' is not needed, axios sets it automatically when you pass FormData

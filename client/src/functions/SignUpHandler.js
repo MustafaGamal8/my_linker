@@ -1,14 +1,11 @@
-import axios from "axios";
-import { redirect } from "react-router-dom";
 import { toast } from "react-toastify";
-
-const ServerUrl = "https://mylinker-server.vercel.app";
+import ApiUrl from "../config/baseUrl";
 
 const SignUpHandler = async (email, password,displayName) => {
   const loadingToast = toast.loading("جاري إنشاء حساب");
 
   try {
-    const response =  await axios.post(ServerUrl + "/auth/signup", {
+    const response =  await ApiUrl.post("/auth/signup", {
       email: email,
       password: password,
       displayName: displayName

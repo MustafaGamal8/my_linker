@@ -1,9 +1,6 @@
-import axios from "axios";
 import { toast } from 'react-toastify';
 import Cookies from 'universal-cookie';
-
-
-const ServerUrl = "https://mylinker-server.vercel.app";
+import ApiUrl from "../config/baseUrl";
 
 
 const LoginHandler = async (email, password) => {
@@ -11,7 +8,7 @@ const LoginHandler = async (email, password) => {
   
   const loadingToast = toast.loading("جاري تسجيل الدخول")
   try {
-    const response = await axios.post(ServerUrl + "/auth/login", {
+    const response = await ApiUrl.post( "/auth/login", {
       email: email,
       password: password
     })

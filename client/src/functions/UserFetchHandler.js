@@ -1,11 +1,10 @@
-import axios from "axios";
 
+import ApiUrl from "../config/baseUrl";
 
-const ServerUrl = "https://mylinker-server.vercel.app";
 
 const UserFetchHandler = async (token) => {
   try {
-    const response =  await axios.post(ServerUrl + "/users/get",{},{
+    const response =  await ApiUrl.post("/users/get",{},{
       headers: {
         "x-auth-token": token
       }})

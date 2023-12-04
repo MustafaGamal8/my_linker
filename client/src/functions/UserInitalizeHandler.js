@@ -1,15 +1,12 @@
-import axios from "axios";
+
 import { toast } from 'react-toastify';
 import UserFetchHandler from "./UserFetchHandler";
-
-// const ServerUrl = "http://localhost:3000";
-
-const ServerUrl = "https://mylinker-server.vercel.app";
+import ApiUrl from '../config/baseUrl';
 
 
 const UserInitalizeHandler = async (token) => {
   try {
-     await axios.get(ServerUrl + "/users/initalize",{
+     await ApiUrl.get("/users/initalize",{
       headers: {
         "x-auth-token": token
       }
