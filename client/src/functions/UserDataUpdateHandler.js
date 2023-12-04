@@ -33,7 +33,7 @@ const UserDataHandler = async (data, token) => {
   formData.append('details', JSON.stringify(data.details));
 
   try {
-    const response = await ApiUrl.put(`${ServerUrl}/users/update`, formData, {
+    const response = await ApiUrl.put(`/users/update`, formData, {
       headers: {
         'x-auth-token': token,
         // 'Content-Type': 'multipart/form-data' is not needed, axios sets it automatically when you pass FormData
