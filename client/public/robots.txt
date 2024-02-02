@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: /admin
-Disallow: /private
+Disallow: /admin/
+Disallow: /private/
 Sitemap: https://mylinker.vercel.app/sitemap.xml
