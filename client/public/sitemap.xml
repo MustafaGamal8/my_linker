@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc>https://mylinker.vercel.app</loc>
+      <priority>1.0</priority>
+      <changefreq>daily</changefreq>
+      <lastmod>2024-02-02</lastmod>
+      <keywords>home, landing page, mylinker</keywords>
+   </url>
+   <url>
+      <loc>https://mylinker.vercel.app/auth/login</loc>
+      <priority>0.8</priority>
+      <changefreq>monthly</changefreq>
+      <lastmod>2024-02-02</lastmod>
+      <keywords>login, authentication, mylinker</keywords>
+   </url>
+   <url>
+      <loc>https://mylinker.vercel.app/auth/register</loc>
+      <priority>0.8</priority>
+      <changefreq>monthly</changefreq>
+      <lastmod>2024-02-02</lastmod>
+      <keywords>register, sign up, mylinker</keywords>
+   </url>
+   <url>
+      <loc>https://mylinker.vercel.app/profile</loc>
+      <priority>0.9</priority>
+      <changefreq>weekly</changefreq>
+      <lastmod>2024-02-02</lastmod>
+      <keywords>profile, user profile, mylinker</keywords>
+   </url>
+   <url>
+      <loc>https://mylinker.vercel.app/templates</loc>
+      <priority>0.9</priority>
+      <changefreq>weekly</changefreq>
+      <lastmod>2024-02-02</lastmod>
+      <keywords>templates, design templates, mylinker</keywords>
+   </url>
+   <url>
+      <loc>https://mylinker.vercel.app/temp/:tempName/:userId</loc>
+      <priority>0.7</priority>
+      <changefreq>yearly</changefreq>
+      <lastmod>2024-02-02</lastmod>
+      <keywords>temporary page, template details, mylinker</keywords>
+   </url>
+   <url>
+      <loc>https://mylinker.vercel.app/*</loc>
+      <priority>0.5</priority>
+      <changefreq>never</changefreq>
+      <lastmod>2024-02-02</lastmod>
+      <keywords>not found, error page, mylinker</keywords>
+   </url>
+</urlset>
