@@ -24,6 +24,8 @@ const signUp = asyncHandler(async (req, res) => {
     return res.status(400).json({ error: "البريد الالكتروني مستخدم بالفعل" })
   }
 
+  
+
   const hashedPwd = await bcrypt.hash(form.password, 10)
 
   const userObj = new UserModel({
